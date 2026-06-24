@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Cyber Tools Index</title>
+<meta name="description" content="A searchable index of free web-based cybersecurity tools — threat intel, malware analysis, OSINT, vulnerability research and more.">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #0d1117;
+    --bg-surface: #161b22;
+    --bg-card: #161b22;
+    --bg-hover: #1c2128;
+    --border: rgba(255,255,255,0.08);
+    --border-hover: rgba(255,255,255,0.16);
+    --text-primary: #e6edf3;
+    --text-secondary: #8b949e;
+    --text-muted: #484f58;
+    --accent: #58a6ff;
+    --accent-dim: rgba(88,166,255,0.12);
+    --green: #3fb950;
+    --green-dim: rgba(63,185,80,0.12);
+    --purple: #bc8cff;
+    --purple-dim: rgba(188,140,255,0.12);
+    --coral: #ff7b72;
+    --coral-dim: rgba(255,123,114,0.12);
+    --amber: #d29922;
+    --amber-dim: rgba(210,153,34,0.12);
+    --teal: #39d353;
+    --teal-dim: rgba(57,211,83,0.1);
+    --pink: #f778ba;
+    --pink-dim: rgba(247,120,186,0.12);
+    --gray-dim: rgba(139,148,158,0.12);
+    --radius: 8px;
+    --radius-lg: 12px;
+    --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+    background: var(--bg);
+    color: var(--text-primary);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── Header ── */
+  .site-header {
+    border-bottom: 1px solid var(--border);
+    padding: 0 clamp(1rem, 4vw, 3rem);
+  }
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem 0 2.5rem;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.75rem;
+  }
+  h1 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+  }
+  .header-sub {
+    font-size: 15px;
+    color: var(--text-secondary);
+    max-width: 560px;
+  }
+  .header-meta {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+  }
+  .meta-pill {
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 5px;
+  }
+  .meta-pill span { color: var(--green); }
+
+  /* ── Controls ── */
+  .controls-bar {
+    padding: 0 clamp(1rem, 4vw, 3rem);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(13,17,23,0.92);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    z-index: 10;
+  }
+  .controls-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 0;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .search-wrap {
+    position: relative;
+    flex: 1;
+    min-width: 200px;
+    max-width: 360px;
+  }
+  .search-icon {
+    position: absolute;
+    left: 11px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 15px;
+    height: 15px;
+    color: var(--text-muted);
+    pointer-events: none;
+  }
+  #search {
+    width: 100%;
+    background: var(--bg-surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 8px 12px 8px 34px;
+    font-size: 13px;
+    color: var(--text-primary);
+    outline: none;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  #search::placeholder { color: var(--text-muted); }
+  #search:focus { border-color: var(--accent); }
+
+  .filter-scroll {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .filter-btn {
+    padding: 5px 12px;
+    font-size: 12px;
+    font-family: inherit;
+    border: 1px solid var(--border);
+    border-radius: 99px;
+    background: transparent;
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: all 0.15s;
+    white-space: nowrap;
+  }
+  .filter-btn:hover { border-color: var(--border-hover); color: var(--text-primary); }
+  .filter-btn.active {
+    background: var(--accent-dim);
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .count-badge {
+    margin-left: auto;
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text-muted);
+    white-space: nowrap;
+  }
+  .count-badge strong { color: var(--text-secondary); }
+
+  /* ── Grid ── */
+  .grid-wrap {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1.75rem clamp(1rem, 4vw, 3rem) 4rem;
+  }
+  .tools-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 10px;
+  }
+
+  /* ── Tool card ── */
+  .tool-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: border-color 0.15s, background 0.15s;
+    position: relative;
+  }
+  .tool-card:hover {
+    border-color: var(--border-hover);
+    background: var(--bg-hover);
+  }
+  .card-top {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  .tool-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+  .card-actions {
+    display: flex;
+    gap: 6px;
+    flex-shrink: 0;
+  }
+  .btn-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    flex-shrink: 0;
+  }
+  .btn-icon:hover { border-color: var(--border-hover); color: var(--text-primary); background: var(--bg-hover); }
+  .btn-icon svg { width: 13px; height: 13px; }
+  .btn-icon.copied { border-color: var(--green); color: var(--green); background: var(--green-dim); }
+
+  .tool-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.55;
+    flex: 1;
+  }
+  .card-tags {
+    display: flex;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  .tag {
+    font-size: 10px;
+    font-family: var(--mono);
+    letter-spacing: 0.05em;
+    padding: 2px 8px;
+    border-radius: 99px;
+    font-weight: 500;
+  }
+  .tag-scan    { background: var(--accent-dim);  color: var(--accent);  }
+  .tag-intel   { background: var(--green-dim);   color: var(--green);   }
+  .tag-osint   { background: var(--purple-dim);  color: var(--purple);  }
+  .tag-malware { background: var(--coral-dim);   color: var(--coral);   }
+  .tag-network { background: var(--teal-dim);    color: #3fb950;        }
+  .tag-vuln    { background: var(--amber-dim);   color: var(--amber);   }
+  .tag-breach  { background: var(--pink-dim);    color: var(--pink);    }
+  .tag-domain  { background: var(--gray-dim);    color: var(--text-secondary); }
+  .tag-sandbox { background: var(--purple-dim);  color: var(--purple);  }
+
+  /* ── Toast ── */
+  #toast {
+    position: fixed;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%) translateY(10px);
+    background: var(--bg-surface);
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-size: 13px;
+    font-family: var(--mono);
+    padding: 8px 18px;
+    border-radius: 99px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s, transform 0.2s;
+    z-index: 100;
+    white-space: nowrap;
+  }
+  #toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+  /* ── Empty state ── */
+  .empty-state {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--text-muted);
+  }
+  .empty-state svg { width: 32px; height: 32px; margin-bottom: 1rem; opacity: 0.4; }
+  .empty-state p { font-size: 14px; }
+
+  /* ── Footer ── */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 1.5rem clamp(1rem, 4vw, 3rem);
+    text-align: center;
+    font-size: 12px;
+    font-family: var(--mono);
+    color: var(--text-muted);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 600px) {
+    .tools-grid { grid-template-columns: 1fr; }
+    .header-meta { gap: 1rem; }
+    .count-badge { display: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <p class="eyebrow">// security toolkit</p>
+    <h1>Free Cyber Tools Index</h1>
+    <p class="header-sub">A curated index of free, web-based cybersecurity tools for threat intel, OSINT, malware analysis, and more.</p>
+    <div class="header-meta">
+      <span class="meta-pill">&#9679; <span id="total-count">75</span> tools indexed</span>
+      <span class="meta-pill">&#9679; <span>free &amp; web-based</span></span>
+      <span class="meta-pill">&#9679; <span>no install required</span></span>
+    </div>
+  </div>
+</header>
+
+<div class="controls-bar">
+  <div class="controls-inner">
+    <div class="search-wrap">
+      <svg class="search-icon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <circle cx="6.5" cy="6.5" r="4.5"/><path d="M10.5 10.5l3 3"/>
+      </svg>
+      <input type="search" id="search" placeholder="Search tools..." autocomplete="off" spellcheck="false" aria-label="Search tools">
+    </div>
+    <div class="filter-scroll" role="group" aria-label="Filter by category">
+      <button class="filter-btn active" data-cat="all">All</button>
+      <button class="filter-btn" data-cat="scan">URL / File scan</button>
+      <button class="filter-btn" data-cat="intel">Threat intel</button>
+      <button class="filter-btn" data-cat="osint">OSINT</button>
+      <button class="filter-btn" data-cat="malware">Malware</button>
+      <button class="filter-btn" data-cat="network">Network / IoT</button>
+      <button class="filter-btn" data-cat="vuln">Vulnerabilities</button>
+      <button class="filter-btn" data-cat="breach">Breach / Creds</button>
+      <button class="filter-btn" data-cat="domain">Domain / DNS</button>
+    </div>
+    <span class="count-badge"><strong id="shown-count">75</strong> shown</span>
+  </div>
+</div>
+
+<main class="grid-wrap">
+  <div class="tools-grid" id="grid" role="list" aria-label="Cybersecurity tools"></div>
+</main>
+
+<div id="toast" role="status" aria-live="polite">URL copied</div>
+
+<footer>
+  free cyber tools index &mdash; all tools are third-party services &mdash; always verify before use
+</footer>
+
+<script>
+const TOOLS = [
+  {name:"VirusTotal",url:"https://www.virustotal.com",desc:"Analyze suspicious files, URLs, domains and IPs against 70+ antivirus scanners and threat intel blacklists.",cats:["scan","malware","intel"],tags:["scan","malware","intel"]},
+  {name:"URLScan.io",url:"https://urlscan.io",desc:"Scan and analyze websites — browses the URL like a real user and records all activity, resources, and links.",cats:["scan","domain"],tags:["scan","domain"]},
+  {name:"ANY.RUN",url:"https://any.run",desc:"Interactive online malware sandbox for DFIR/SOC investigations. Run samples live in a browser-based VM.",cats:["malware","sandbox"],tags:["malware","sandbox"]},
+  {name:"Hybrid Analysis",url:"https://www.hybrid-analysis.com",desc:"Free malware analysis powered by CrowdStrike Falcon Sandbox. Cross-checks with VirusTotal and MetaDefender.",cats:["malware","sandbox"],tags:["malware","sandbox"]},
+  {name:"AbuseIPDB",url:"https://www.abuseipdb.com",desc:"Community-driven database to report or look up IP addresses associated with hacking, spam, and abuse.",cats:["intel","network"],tags:["intel","network"]},
+  {name:"Shodan",url:"https://www.shodan.io",desc:"Search engine for internet-connected devices — find exposed servers, IoT devices, webcams, and industrial systems.",cats:["network","osint"],tags:["network","osint"]},
+  {name:"Censys",url:"https://search.censys.io",desc:"Discover exposed servers and certificates across the internet. Used for attack surface enumeration.",cats:["network","osint"],tags:["network","osint"]},
+  {name:"Have I Been Pwned",url:"https://haveibeenpwned.com",desc:"Check if your email address or passwords have appeared in a known data breach. Billions of records indexed.",cats:["breach"],tags:["breach"]},
+  {name:"MalwareBazaar",url:"https://bazaar.abuse.ch",desc:"Search and download confirmed malware samples by hash, family, or tag. Run by the abuse.ch community.",cats:["malware","intel"],tags:["malware","intel"]},
+  {name:"Cisco Talos Intelligence",url:"https://talosintelligence.com",desc:"IP and domain reputation center from Cisco. Real-time threat detection and global threat intelligence data.",cats:["intel","domain"],tags:["intel","domain"]},
+  {name:"OTX – AlienVault",url:"https://otx.alienvault.com",desc:"Open Threat Exchange — community-powered threat intelligence sharing platform with IoC feeds.",cats:["intel","osint"],tags:["intel","osint"]},
+  {name:"GreyNoise",url:"https://viz.greynoise.io",desc:"Search exposed internet assets and malicious IPs. Visualizes and reduces internet scan noise for analysts.",cats:["intel","network"],tags:["intel","network"]},
+  {name:"Netcraft Site Report",url:"https://sitereport.netcraft.com",desc:"Free website analysis: SSL/TLS details, HTTP security headers, hosting history, SPF/DMARC, and reputation.",cats:["scan","domain"],tags:["scan","domain"]},
+  {name:"PhishTank",url:"https://www.phishtank.com",desc:"Community site to submit and verify phishing URLs. Searchable database of confirmed phishing sites.",cats:["scan","intel"],tags:["scan","intel"]},
+  {name:"URLhaus",url:"https://urlhaus.abuse.ch",desc:"Share and look up malicious URLs used for malware distribution. Part of the abuse.ch project.",cats:["scan","malware"],tags:["scan","malware"]},
+  {name:"URLVoid",url:"https://www.urlvoid.com",desc:"Check URL reputation and history across multiple blacklist engines and safety services.",cats:["scan","domain"],tags:["scan","domain"]},
+  {name:"IPVoid",url:"https://www.ipvoid.com",desc:"Check an IP address reputation across dozens of blacklist and reputation services at once.",cats:["intel","network"],tags:["intel","network"]},
+  {name:"MXToolbox",url:"https://mxtoolbox.com",desc:"Free DNS lookups, MX record checks, blacklist monitoring, and email deliverability diagnostic tools.",cats:["domain","network"],tags:["domain","network"]},
+  {name:"DNSDumpster",url:"https://dnsdumpster.com",desc:"Free domain research tool for DNS recon and host discovery. Maps DNS records and related subdomains.",cats:["domain","osint"],tags:["domain","osint"]},
+  {name:"WHOIS Lookup",url:"https://who.is",desc:"Look up domain registration details — registrar, creation date, name servers, and contact info.",cats:["domain","osint"],tags:["domain","osint"]},
+  {name:"CRT.sh",url:"https://crt.sh",desc:"Certificate transparency log search engine. Discover subdomains and SSL certificates for any domain.",cats:["domain","osint"],tags:["domain","osint"]},
+  {name:"NVD – NIST",url:"https://nvd.nist.gov",desc:"U.S. government repository of standards-based vulnerability data. Canonical CVE database with CVSS scores.",cats:["vuln"],tags:["vuln"]},
+  {name:"Exploit-DB",url:"https://www.exploit-db.com",desc:"Archive of public exploits and vulnerable software maintained by Offensive Security for research use.",cats:["vuln"],tags:["vuln"]},
+  {name:"CVE Details",url:"https://www.cvedetails.com",desc:"Browse and search CVEs by product, vendor, or score. Useful for software vulnerability tracking.",cats:["vuln"],tags:["vuln"]},
+  {name:"OSINT Framework",url:"https://osintframework.com",desc:"Web-based mind-map of OSINT tools and resources organized by category. Great starting point for recon.",cats:["osint"],tags:["osint"]},
+  {name:"SpiderFoot",url:"https://www.spiderfoot.net",desc:"OSINT automation querying 200+ data sources about domains, IPs, emails, and usernames simultaneously.",cats:["osint","intel"],tags:["osint","intel"]},
+  {name:"Maltego CE",url:"https://www.maltego.com",desc:"Link analysis platform visualizing relationships between people, domains, IPs, and organizations. CE is free.",cats:["osint"],tags:["osint"]},
+  {name:"Pulsedive",url:"https://pulsedive.com",desc:"Free threat intelligence platform with IoC enrichment. Search indicators, feeds, and threat context.",cats:["intel"],tags:["intel"]},
+  {name:"ThreatMiner",url:"https://www.threatminer.org",desc:"Data mining for threat intelligence — search IPs, domains, and hashes for related malware and threat data.",cats:["intel","malware"],tags:["intel","malware"]},
+  {name:"FullHunt",url:"https://fullhunt.io",desc:"External attack surface discovery and management. Find and secure your internet-exposed assets.",cats:["network","osint"],tags:["network","osint"]},
+  {name:"SecurityHeaders.com",url:"https://securityheaders.com",desc:"Scan any website and grade its HTTP security headers — CSP, HSTS, X-Frame-Options, and more.",cats:["scan","domain"],tags:["scan","domain"]},
+  {name:"SSL Labs",url:"https://www.ssllabs.com/ssltest",desc:"Deep analysis of SSL/TLS configuration for any web server. Grades certificate chain and cipher suites.",cats:["scan","domain"],tags:["scan","domain"]},
+  {name:"Criminal IP",url:"https://www.criminalip.io",desc:"Cyber threat intelligence search engine and attack surface management platform for IPs and domains.",cats:["intel","network","osint"],tags:["intel","network"]},
+  {name:"FOFA",url:"https://fofa.info",desc:"Asset search and analysis tool for internet-connected devices. Alternative to Shodan with different indexing.",cats:["network","osint"],tags:["network","osint"]},
+  {name:"ZoomEye",url:"https://www.zoomeye.ai",desc:"Search engine for internet asset discovery. Find connected devices, services, and exposed systems.",cats:["network","osint"],tags:["network","osint"]},
+  {name:"GrayhatWarfare",url:"https://grayhatwarfare.com",desc:"Search open Amazon S3 buckets — find potentially exposed public cloud storage data.",cats:["osint"],tags:["osint"]},
+  {name:"Shadowserver",url:"https://www.shadowserver.org",desc:"Global cyber threat statistics: botnet tracking, malware distribution, and internet scan reports.",cats:["intel","network"],tags:["intel","network"]},
+  {name:"Threat Intelligence Platform",url:"https://threatintelligenceplatform.com",desc:"Quick lookup for IPs and domains — combines WHOIS, DNS, and threat reputation in one view.",cats:["intel","domain"],tags:["intel","domain"]},
+  {name:"Hunter.io",url:"https://hunter.io",desc:"Find and verify email addresses associated with any domain. 25 free searches per month.",cats:["osint"],tags:["osint"]},
+  {name:"WiGLE",url:"https://wigle.net",desc:"Wireless network mapping database. Crowdsourced Wi-Fi and cell network geolocation data.",cats:["network","osint"],tags:["network","osint"]},
+  {name:"ONYPHE",url:"https://www.onyphe.io",desc:"OSINT engine that indexes exposed assets and services across the internet with a searchable API.",cats:["network","osint"],tags:["network","osint"]},
+  {name:"Metadefender",url:"https://metadefender.opswat.com",desc:"Multi-scan files for malware using 40+ AV engines. Also supports file sanitization and CDR.",cats:["scan","malware"],tags:["scan","malware"]},
+  {name:"Joe Sandbox",url:"https://www.joesandbox.com",desc:"Deep malware analysis with behavioral analytics. Web-based sandbox with detailed execution reports.",cats:["malware","sandbox"],tags:["malware","sandbox"]},
+  {name:"Intezer Analyze",url:"https://analyze.intezer.com",desc:"Free malware analysis using code reuse detection. Identifies malware families by genetic code similarity.",cats:["malware","intel"],tags:["malware","intel"]},
+  {name:"MITRE ATT&CK",url:"https://attack.mitre.org",desc:"Knowledge base of adversary tactics and techniques. Reference framework for threat modeling and detection.",cats:["intel"],tags:["intel"]},
+  {name:"CIRCL CVE Search",url:"https://cve.circl.lu",desc:"Free API and web interface for CVE vulnerability data from CIRCL Luxembourg. Supports bulk queries.",cats:["vuln"],tags:["vuln"]},
+  {name:"Browserling",url:"https://www.browserling.com",desc:"Cross-browser testing and safe URL viewing. Open suspicious sites in isolated browser sessions.",cats:["scan"],tags:["scan"]},
+  {name:"SOCRadar Labs",url:"https://labs.socradar.com",desc:"Free browser-based OSINT platform — IP/domain reputation, WHOIS, passive DNS, dark web checks, CVE lookup.",cats:["intel","osint","domain"],tags:["intel","osint"]},
+  {name:"IsLegitSite",url:"https://www.islegitsite.com",desc:"Website trustworthiness checker analyzing reputation, domain age, and public security signals.",cats:["scan","domain"],tags:["scan","domain"]},
+  {name:"Web-Check",url:"https://web-check.xyz",desc:"All-in-one OSINT tool for any website: DNS, TLS, headers, open ports, linked domains, cookies, and more.",cats:["scan","domain","osint"],tags:["scan","domain","osint"]},
+  {name:"Google Safe Browsing",url:"https://transparencyreport.google.com/safe-browsing/search",desc:"Check if a URL is flagged in Google's Safe Browsing database for malware or phishing.",cats:["scan","intel"],tags:["scan","intel"]},
+  {name:"Sucuri SiteCheck",url:"https://sitecheck.sucuri.net",desc:"Free remote website scanner that checks for malware, blacklisting, and outdated software.",cats:["scan","malware"],tags:["scan","malware"]},
+  {name:"DomainTools WHOIS",url:"https://whois.domaintools.com",desc:"Advanced WHOIS lookup with historical records, reverse IP, and domain ownership history.",cats:["domain","osint"],tags:["domain","osint"]},
+  {name:"ViewDNS.info",url:"https://viewdns.info",desc:"Collection of DNS, WHOIS, and network tools: reverse IP, DNS propagation, traceroute, and more.",cats:["domain","network"],tags:["domain","network"]},
+  {name:"BGP.he.net",url:"https://bgp.he.net",desc:"Hurricane Electric BGP toolkit — ASN lookup, BGP routing info, DNS records, and network analysis.",cats:["network","domain"],tags:["network","domain"]},
+  {name:"IPInfo.io",url:"https://ipinfo.io",desc:"IP geolocation, ASN, and company details. Free tier covers 50k lookups per month.",cats:["network","intel"],tags:["network","intel"]},
+  {name:"Robtex",url:"https://www.robtex.com",desc:"DNS and network intelligence — maps IP and domain relationships, reverse lookups, and BGP data.",cats:["domain","network"],tags:["domain","network"]},
+  {name:"PhishTool",url:"https://www.phishtool.com",desc:"Email phishing analysis platform for SOC teams. Parses email headers and extracts IOCs automatically.",cats:["intel","scan"],tags:["intel","scan"]},
+  {name:"EmailRep",url:"https://emailrep.io",desc:"Check the reputation and risk score of any email address based on breach data, activity, and patterns.",cats:["breach","intel"],tags:["breach","intel"]},
+  {name:"DeHashed",url:"https://www.dehashed.com",desc:"Search engine for breached credentials and leaked data — email, username, password, IP, and more.",cats:["breach"],tags:["breach"]},
+  {name:"Intelligence X",url:"https://intelx.io",desc:"OSINT search engine and data archive for emails, domains, URLs, IPs, and breach data including dark web.",cats:["osint","breach"],tags:["osint","breach"]},
+  {name:"CyberGordon",url:"https://cybergordon.com",desc:"Threat intelligence aggregator querying 30+ sources for IOC reputation checks in a single lookup.",cats:["intel"],tags:["intel"]},
+  {name:"Passive Total (RiskIQ)",url:"https://community.riskiq.com",desc:"Passive DNS, WHOIS, SSL certificate search, and infrastructure mapping. Community edition is free.",cats:["domain","intel","osint"],tags:["domain","intel"]},
+  {name:"Cloudflare Radar",url:"https://radar.cloudflare.com",desc:"Internet traffic patterns, DDoS trends, and technology usage data collected by Cloudflare globally.",cats:["intel","network"],tags:["intel","network"]},
+  {name:"Wayback Machine",url:"https://web.archive.org",desc:"Internet Archive — browse historical snapshots of any website for OSINT and deleted content recovery.",cats:["osint"],tags:["osint"]},
+  {name:"Shodan CVE",url:"https://cve.shodan.io",desc:"Search CVEs correlated with exposed internet-facing systems discovered by Shodan's global scans.",cats:["vuln","network"],tags:["vuln","network"]},
+  {name:"VirusTotal Graph",url:"https://www.virustotal.com/graph",desc:"Visualize and explore relationships between files, URLs, domains, and IPs in VirusTotal's dataset.",cats:["scan","intel","osint"],tags:["scan","intel"]},
+  {name:"Spyse (SecurityTrails)",url:"https://securitytrails.com",desc:"Internet infrastructure data — DNS history, subdomains, and IP/domain intelligence. Free tier available.",cats:["domain","osint","intel"],tags:["domain","osint"]},
+  {name:"Cuckoo Sandbox",url:"https://cuckoosandbox.org",desc:"Open-source automated malware analysis system. Self-hostable sandbox for behavioral analysis.",cats:["malware","sandbox"],tags:["malware","sandbox"]},
+  {name:"IPQS",url:"https://www.ipqualityscore.com",desc:"IP, URL, email, and phone reputation scoring. Detect proxies, VPNs, bots, and fraud signals.",cats:["intel","scan"],tags:["intel","scan"]},
+  {name:"URLQuery",url:"https://urlquery.net",desc:"Free URL scanner that detects exploit kits, malicious scripts, and suspicious network activity.",cats:["scan","malware"],tags:["scan","malware"]},
+  {name:"Pwnedpasswords",url:"https://haveibeenpwned.com/Passwords",desc:"Check individual passwords against billions of breach records. Uses k-anonymity — password never sent.",cats:["breach"],tags:["breach"]},
+  {name:"Shodan Exploits",url:"https://exploits.shodan.io",desc:"Search Shodan's exploit database for vulnerabilities tied to specific software and devices.",cats:["vuln","network"],tags:["vuln","network"]},
+  {name:"Vulners",url:"https://vulners.com",desc:"Vulnerability database and search engine aggregating CVEs, exploits, and security advisories.",cats:["vuln"],tags:["vuln"]},
+  {name:"LeakIX",url:"https://leakix.net",desc:"Search engine for exposed services and data leaks across the internet. Indexes misconfigured systems.",cats:["network","osint"],tags:["network","osint"]},
+];
+
+const TAG_CLASS = {scan:"tag-scan",intel:"tag-intel",osint:"tag-osint",malware:"tag-malware",network:"tag-network",vuln:"tag-vuln",breach:"tag-breach",domain:"tag-domain",sandbox:"tag-sandbox"};
+const TAG_LABEL = {scan:"url/file scan",intel:"threat intel",osint:"osint",malware:"malware",network:"network/iot",vuln:"vulns",breach:"breach/creds",domain:"domain/dns",sandbox:"sandbox"};
+
+let activeCat = "all";
+let searchQ = "";
+let toastTimer = null;
+
+document.getElementById("total-count").textContent = TOOLS.length;
+
+function render() {
+  const grid = document.getElementById("grid");
+  const q = searchQ.toLowerCase();
+  const filtered = TOOLS.filter(t => {
+    const catOk = activeCat === "all" || t.cats.includes(activeCat);
+    const srchOk = !q || t.name.toLowerCase().includes(q) || t.desc.toLowerCase().includes(q) || t.tags.some(g => g.includes(q));
+    return catOk && srchOk;
+  });
+
+  document.getElementById("shown-count").textContent = filtered.length;
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `<div class="empty-state" role="status">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M8 11h6M11 8v6"/></svg>
+      <p>No tools match &ldquo;${q || activeCat}&rdquo; &mdash; try clearing the search or filter.</p>
+    </div>`;
+    return;
+  }
+
+  grid.innerHTML = filtered.map(t => `
+    <div class="tool-card" role="listitem">
+      <div class="card-top">
+        <span class="tool-name">${t.name}</span>
+        <div class="card-actions">
+          <button class="btn-icon copy-btn" data-url="${t.url}" title="Copy URL" aria-label="Copy URL for ${t.name}">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M3 11V3a1 1 0 011-1h8"/></svg>
+          </button>
+          <a class="btn-icon" href="${t.url}" target="_blank" rel="noopener noreferrer" title="Open ${t.name}" aria-label="Open ${t.name} in new tab">
+            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3"/><path d="M9 2h5v5"/><path d="M14 2L8 8"/></svg>
+          </a>
+        </div>
+      </div>
+      <p class="tool-desc">${t.desc}</p>
+      <div class="card-tags">${t.tags.map(tag => `<span class="tag ${TAG_CLASS[tag] || 'tag-intel'}">${TAG_LABEL[tag] || tag}</span>`).join("")}</div>
+    </div>
+  `).join("");
+}
+
+// Search
+document.getElementById("search").addEventListener("input", e => {
+  searchQ = e.target.value;
+  render();
+});
+
+// Filters
+document.querySelectorAll(".filter-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    activeCat = btn.dataset.cat;
+    render();
+  });
+});
+
+// Copy URL
+document.getElementById("grid").addEventListener("click", e => {
+  const btn = e.target.closest(".copy-btn");
+  if (!btn) return;
+  const url = btn.dataset.url;
+  navigator.clipboard.writeText(url).then(() => {
+    btn.classList.add("copied");
+    showToast("URL copied");
+    setTimeout(() => btn.classList.remove("copied"), 2000);
+  }).catch(() => {
+    const ta = document.createElement("textarea");
+    ta.value = url; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select(); document.execCommand("copy");
+    document.body.removeChild(ta);
+    showToast("URL copied");
+  });
+});
+
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
+}
+
+render();
+</script>
+</body>
+</html>
