@@ -8,7 +8,7 @@ A searchable, filterable index of free web-based cybersecurity tools — no inst
 
 ## What's included
 
-75+ tools across 8 categories:
+60+ tools across 8 categories:
 
 | Category | Examples |
 |---|---|
