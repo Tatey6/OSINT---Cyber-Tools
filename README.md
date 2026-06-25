@@ -2,7 +2,7 @@
 
 A searchable, filterable index of free web-based cybersecurity tools — no install required, just open a browser.
 
-**Live site:** `https://tatey6.github.io/OSINT---Cyber-Tools/`
+**Live site:** [https://tatey6.github.io/OSINT---Cyber-Tools/](https://tatey6.github.io/OSINT---Cyber-Tools/)
 
 ---
 
