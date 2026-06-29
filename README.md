@@ -30,6 +30,7 @@ A searchable, filterable index of free web-based cybersecurity tools — no inst
 - **Copy URL** button on every card
 - No frameworks, no dependencies — single `index.html` file
 - Works on mobile and desktop
+- Added Favourites feature
 
 ---
 
