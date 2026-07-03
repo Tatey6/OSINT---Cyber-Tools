@@ -35,6 +35,8 @@
     --gray-dim: rgba(139,148,158,0.12);
     --star: #e3b341;
     --star-dim: rgba(227,179,65,0.15);
+    --sky: #38bdf8;
+    --sky-dim: rgba(56,189,248,0.12);
     --radius: 8px;
     --radius-lg: 12px;
     --mono: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
@@ -171,7 +173,6 @@
     border-color: var(--accent);
     color: var(--accent);
   }
-  .filter-btn.fav-filter { }
   .filter-btn.fav-filter.active {
     background: var(--star-dim);
     border-color: var(--star);
@@ -261,15 +262,9 @@
   .btn-icon svg { width: 13px; height: 13px; }
   .btn-icon.copied { border-color: var(--green); color: var(--green); background: var(--green-dim); }
 
-  /* Star button */
-  .star-btn { }
   .star-btn svg { width: 14px; height: 14px; transition: transform 0.15s; }
   .star-btn:hover svg { transform: scale(1.2); }
-  .star-btn.starred {
-    border-color: var(--star);
-    color: var(--star);
-    background: var(--star-dim);
-  }
+  .star-btn.starred { border-color: var(--star); color: var(--star); background: var(--star-dim); }
   .star-btn.starred svg { fill: var(--star); }
 
   .tool-desc {
@@ -291,16 +286,17 @@
     border-radius: 99px;
     font-weight: 500;
   }
-  .tag-scan    { background: var(--accent-dim);  color: var(--accent);  }
-  .tag-intel   { background: var(--green-dim);   color: var(--green);   }
-  .tag-osint   { background: var(--purple-dim);  color: var(--purple);  }
-  .tag-malware { background: var(--coral-dim);   color: var(--coral);   }
-  .tag-network { background: var(--teal-dim);    color: #3fb950;        }
-  .tag-vuln    { background: var(--amber-dim);   color: var(--amber);   }
-  .tag-breach  { background: var(--pink-dim);    color: var(--pink);    }
+  .tag-scan    { background: var(--accent-dim);  color: var(--accent);   }
+  .tag-intel   { background: var(--green-dim);   color: var(--green);    }
+  .tag-osint   { background: var(--purple-dim);  color: var(--purple);   }
+  .tag-malware { background: var(--coral-dim);   color: var(--coral);    }
+  .tag-network { background: var(--teal-dim);    color: #3fb950;         }
+  .tag-vuln    { background: var(--amber-dim);   color: var(--amber);    }
+  .tag-breach  { background: var(--pink-dim);    color: var(--pink);     }
   .tag-domain  { background: var(--gray-dim);    color: var(--text-secondary); }
-  .tag-sandbox { background: var(--purple-dim);  color: var(--purple);  }
-  .tag-study { background: rgba(56,189,248,0.12); color: #38bdf8; }
+  .tag-sandbox { background: var(--purple-dim);  color: var(--purple);   }
+  .tag-study   { background: var(--sky-dim);     color: var(--sky);      }
+  .tag-roadmap { background: var(--sky-dim);     color: var(--sky);      }
 
   #toast {
     position: fixed;
@@ -483,12 +479,20 @@ const TOOLS = [
   {name:"ViewDNS.info",url:"https://viewdns.info",desc:"Collection of DNS, WHOIS, and network tools: reverse IP, DNS propagation, traceroute, and more.",cats:["domain","network"],tags:["domain","network"]},
   {name:"Robtex",url:"https://www.robtex.com",desc:"DNS and network intelligence — maps IP and domain relationships, reverse lookups, and BGP data.",cats:["domain","network"],tags:["domain","network"]},
 
- // ── Study ──
-  {name:"Paul Jerimy Cyber Roadmap", url:"https://pauljerimy.com/security-certification-roadmap/", desc:"Interactive security certification roadmap showing study paths across offensive, defensive, and governance domains.", cats:["study"], tags:["study","roadmap"]},
+  // ── Study ──
+  {name:"Paul Jerimy Cyber Roadmap",url:"https://pauljerimy.com/security-certification-roadmap/",desc:"Interactive security certification roadmap showing study paths across offensive, defensive, and governance domains.",cats:["study"],tags:["study","roadmap"]},
 ];
 
-const TAG_CLASS = {scan:"tag-scan",intel:"tag-intel",osint:"tag-osint",malware:"tag-malware",network:"tag-network",vuln:"tag-vuln",breach:"tag-breach",domain:"tag-domain",study:"tag-study",roadmap:"tag-study",sandbox:"tag-sandbox"};
-const TAG_LABEL = {scan:"url/file scan",intel:"threat intel",osint:"osint",malware:"malware",network:"network/iot",vuln:"vulns",breach:"breach/creds",domain:"domain/dns",study:"study",roadmap:"roadmap",sandbox:"sandbox"};
+const TAG_CLASS = {
+  scan:"tag-scan", intel:"tag-intel", osint:"tag-osint", malware:"tag-malware",
+  network:"tag-network", vuln:"tag-vuln", breach:"tag-breach", domain:"tag-domain",
+  sandbox:"tag-sandbox", study:"tag-study", roadmap:"tag-roadmap"
+};
+const TAG_LABEL = {
+  scan:"url/file scan", intel:"threat intel", osint:"osint", malware:"malware",
+  network:"network/iot", vuln:"vulns", breach:"breach/creds", domain:"domain/dns",
+  sandbox:"sandbox", study:"study", roadmap:"roadmap"
+};
 const LS_KEY = "cyber-tools-favs";
 
 let activeCat = "all";
@@ -496,7 +500,6 @@ let searchQ = "";
 let toastTimer = null;
 let favs = new Set();
 
-// Load favourites from localStorage
 try {
   const saved = localStorage.getItem(LS_KEY);
   if (saved) favs = new Set(JSON.parse(saved));
@@ -523,8 +526,7 @@ function updateFavCounts() {
   const count = favs.size;
   document.getElementById("fav-meta-count").textContent = count;
   document.getElementById("fav-filter-count").textContent = count;
-  const badge = document.getElementById("fav-filter-count");
-  badge.classList.toggle("visible", count > 0);
+  document.getElementById("fav-filter-count").classList.toggle("visible", count > 0);
 }
 
 document.getElementById("total-count").textContent = TOOLS.length;
@@ -541,12 +543,9 @@ function render() {
     return catOk && srchOk;
   });
 
-  // Sort: favourites first within any view
   filtered.sort((a, b) => {
     if (activeCat !== "favourites") {
-      const af = favs.has(a.name) ? 0 : 1;
-      const bf = favs.has(b.name) ? 0 : 1;
-      return af - bf;
+      return (favs.has(a.name) ? 0 : 1) - (favs.has(b.name) ? 0 : 1);
     }
     return 0;
   });
@@ -588,13 +587,11 @@ function render() {
   }).join("");
 }
 
-// Search
 document.getElementById("search").addEventListener("input", e => {
   searchQ = e.target.value;
   render();
 });
 
-// Category filters
 document.querySelectorAll(".filter-btn").forEach(btn => {
   btn.addEventListener("click", () => {
     document.querySelectorAll(".filter-btn").forEach(b => b.classList.remove("active"));
@@ -604,7 +601,6 @@ document.querySelectorAll(".filter-btn").forEach(btn => {
   });
 });
 
-// Card button clicks (star + copy)
 document.getElementById("grid").addEventListener("click", e => {
   const starBtn = e.target.closest(".star-btn");
   if (starBtn) { toggleFav(starBtn.dataset.name); return; }
@@ -629,7 +625,7 @@ document.getElementById("grid").addEventListener("click", e => {
 function showToast(msg, isStar) {
   const t = document.getElementById("toast");
   t.textContent = msg;
-  t.className = isStar === true ? "show toast-star" : isStar === false ? "show" : "show";
+  t.className = isStar === true ? "show toast-star" : "show";
   clearTimeout(toastTimer);
   toastTimer = setTimeout(() => t.classList.remove("show"), 2200);
 }
