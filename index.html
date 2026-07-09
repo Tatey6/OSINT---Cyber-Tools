@@ -297,6 +297,7 @@
   .tag-sandbox { background: var(--purple-dim);  color: var(--purple);   }
   .tag-study   { background: var(--sky-dim);     color: var(--sky);      }
   .tag-roadmap { background: var(--sky-dim);     color: var(--sky);      }
+  .tag-poc     { background: rgba(251,146,60,0.12); color: #fb923c; }
 
   #toast {
     position: fixed;
@@ -381,6 +382,7 @@
       <button class="filter-btn" data-cat="breach">Breach / Creds</button>
       <button class="filter-btn" data-cat="domain">Domain / DNS</button>
       <button class="filter-btn" data-cat="study">Study</button>
+      <button class="filter-btn" data-cat="poc">CVE / PoC</button>
       <button class="filter-btn fav-filter" data-cat="favourites">
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true" style="width:12px;height:12px"><path d="M8 2.5l1.545 3.13 3.455.502-2.5 2.437.59 3.44L8 10.385l-3.09 1.624.59-3.44L3 6.132l3.455-.502L8 2.5z"/></svg>
         Favourites
@@ -481,17 +483,20 @@ const TOOLS = [
 
   // ── Study ──
   {name:"Paul Jerimy Cyber Roadmap",url:"https://pauljerimy.com/security-certification-roadmap/",desc:"Interactive security certification roadmap showing study paths across offensive, defensive, and governance domains.",cats:["study"],tags:["study","roadmap"]},
+ 
+ // ── Vuln POC ──
+  {name:"Nomi Sec CVE POCs",url:"https://github.com/nomi-sec/PoC-in-GitHub",desc:"Automated system and aggregation tool that scans GitHub daily to collect Proof of Concept (PoC) code and exploits for newly discovered cybersecurity vulnerabilities",cats:["CVE"],tags:["study","POC"]},
 ];
 
 const TAG_CLASS = {
   scan:"tag-scan", intel:"tag-intel", osint:"tag-osint", malware:"tag-malware",
   network:"tag-network", vuln:"tag-vuln", breach:"tag-breach", domain:"tag-domain",
-  sandbox:"tag-sandbox", study:"tag-study", roadmap:"tag-roadmap"
+  sandbox:"tag-sandbox", study:"tag-study", roadmap:"tag-roadmap", poc:"tag-poc"
 };
 const TAG_LABEL = {
   scan:"url/file scan", intel:"threat intel", osint:"osint", malware:"malware",
   network:"network/iot", vuln:"vulns", breach:"breach/creds", domain:"domain/dns",
-  sandbox:"sandbox", study:"study", roadmap:"roadmap"
+  sandbox:"sandbox", study:"study", roadmap:"roadmap", poc:"cve/poc"
 };
 const LS_KEY = "cyber-tools-favs";
 
