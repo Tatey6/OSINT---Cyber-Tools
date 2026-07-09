@@ -297,7 +297,7 @@
   .tag-sandbox { background: var(--purple-dim);  color: var(--purple);   }
   .tag-study   { background: var(--sky-dim);     color: var(--sky);      }
   .tag-roadmap { background: var(--sky-dim);     color: var(--sky);      }
-  .tag-poc     { background: rgba(251,146,60,0.12); color: #fb923c; }
+  .tag-poc     { background: rgba(251,146,60,0.12); color: #fb923c;      }
 
   #toast {
     position: fixed;
@@ -483,9 +483,9 @@ const TOOLS = [
 
   // ── Study ──
   {name:"Paul Jerimy Cyber Roadmap",url:"https://pauljerimy.com/security-certification-roadmap/",desc:"Interactive security certification roadmap showing study paths across offensive, defensive, and governance domains.",cats:["study"],tags:["study","roadmap"]},
- 
- // ── Vuln POC ──
-  {name:"Nomi Sec CVE POCs",url:"https://github.com/nomi-sec/PoC-in-GitHub",desc:"Automated system and aggregation tool that scans GitHub daily to collect Proof of Concept (PoC) code and exploits for newly discovered cybersecurity vulnerabilities",cats:["CVE"],tags:["study","POC"]},
+
+  // ── CVE / PoC ──
+  {name:"Nomi Sec CVE POCs",url:"https://github.com/nomi-sec/PoC-in-GitHub",desc:"Automated aggregation tool that scans GitHub daily to collect Proof of Concept (PoC) code and exploits for newly discovered cybersecurity vulnerabilities.",cats:["poc"],tags:["poc"]},
 ];
 
 const TAG_CLASS = {
