@@ -1,0 +1,53 @@
+name: Link check
+
+on:
+  schedule:
+    - cron: "0 0 * * 1"   # Mondays 00:00 UTC (8am Perth)
+  workflow_dispatch:       # adds a "Run workflow" button on the Actions tab
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: link-check
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Check every tool URL
+        run: node .github/scripts/check-links.mjs
+
+      - name: Open, update or close the link-check issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source link-summary.env
+          gh label create link-check --color d73a4a --description "Automated dead-link report" --force
+          existing=$(gh issue list --label link-check --state open --json number --jq '.[0].number // empty')
+
+          if [ "$PROBLEMS" -gt 0 ]; then
+            title="Link check: $DEAD broken, $MOVED moved"
+            if [ -n "$existing" ]; then
+              gh issue edit "$existing" --title "$title" --body-file link-report.md
+              gh issue comment "$existing" --body "Re-checked: still $DEAD broken, $MOVED moved. Report above is updated."
+            else
+              gh issue create --title "$title" --label link-check --body-file link-report.md
+            fi
+          elif [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "All links pass now. Closing."
+            gh issue close "$existing"
+          fi
+
+      - name: Add report to the run summary
+        if: always()
+        run: '[ -f link-report.md ] && cat link-report.md >> "$GITHUB_STEP_SUMMARY" || true'
