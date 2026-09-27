@@ -121,26 +121,6 @@ Open `index.html`, find the `TOOLS` array, and add a line in the right section:
 - Every line ends with `},`.
 - Renaming a tool resets any favourites and notes people have saved against the old name.
 
-### Adding a new category
-A new category needs the **same lowercase value** in three places in `index.html`:
-
-1. The tool entry: `cats:["newcat"],tags:["newcat"]`
-2. A sidebar button, in the **Categories** list: `<button class="filter-btn" data-cat="newcat"><span class="label">New category</span><span class="count"></span></button>`
-3. The `TAG_LABEL` list in the JavaScript: `newcat:"New category"`
-
-The count next to the button fills in automatically.
-
----
-
-## Name and logo
-
-`index.html` has two marked spots near the top of the page. Search the file for `LOGO:` and `NAME:`.
-
-- **Logo:** upload the image to the repo (SVG is best), then replace the placeholder `<span class="brand-logo is-placeholder" ...>LOGO</span>` with `<img class="brand-logo" src="logo.svg" alt="">`.
-- **Name:** replace `Site Name` with your site's name.
-- **Browser tab icon:** add `<link rel="icon" href="logo.svg">` inside `<head>`.
-- **Link previews:** a commented block in `<head>` shows the two lines to add so shared links show your name and image in Teams, Slack or email.
-
 ---
 
 ## Repo structure
