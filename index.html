@@ -321,6 +321,32 @@
   #toast.toast-star { border-color: var(--star); color: var(--star); }
   #toast.toast-note { border-color: var(--sky); color: var(--sky); }
 
+  /* ── Recently used ── */
+  .recent { margin-bottom: 1.25rem; }
+  .recent-head { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .recent-title { font-size: 13px; font-weight: 600; color: var(--text-primary); }
+  .recent-clear { font-size: 12px; background: none; border: none; color: var(--text-muted); cursor: pointer; font-family: inherit; padding: 2px 4px; }
+  .recent-clear:hover { color: var(--text-primary); }
+  .recent-list { display: flex; flex-wrap: wrap; gap: 6px; }
+  .recent-chip {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12.5px;
+    padding: 5px 11px;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .recent-chip:hover { border-color: var(--accent); color: var(--accent); }
+  .recent-chip:focus-visible, .recent-clear:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .recent-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+  .recent-dot.public { background: var(--coral); }
+  .recent-dot.active { background: var(--amber); }
+  .recent-dot.passive { background: var(--green); }
+  .recent-dot.reference { background: var(--text-muted); }
+  .recent-when { font-size: 11px; color: var(--text-muted); font-family: var(--mono); }
+
   /* ── OPSEC ── */
   .opsec-banner { margin-top: 1rem; }
   .opsec-legend { display: flex; flex-wrap: wrap; gap: 8px 14px; font-size: 12px; color: var(--text-secondary); }
@@ -545,6 +571,7 @@
 </div>
 
 <main class="grid-wrap">
+  <section class="recent" id="recent" aria-label="Recently used tools" hidden></section>
   <div class="tools-grid" id="grid" role="list" aria-label="Cybersecurity tools"></div>
 </main>
 
@@ -560,7 +587,7 @@ const TOOLS = [
   // ── URL / File Scan ──
   {name:"VirusTotal",url:"https://www.virustotal.com",desc:"Analyze suspicious files, URLs, domains and IPs against 70+ antivirus scanners and threat intel blacklists.",cats:["scan","malware","intel"],tags:["scan","malware","intel"],opsec:"public",opsecNote:"Uploaded files and URLs are shared with the security community, and paid users can download uploaded files. Search by hash instead of uploading anything sensitive."},
   {name:"URLScan.io",url:"https://urlscan.io",desc:"Scan and analyze websites — browses the URL like a real user and records all activity, resources, and links.",cats:["scan","domain"],tags:["scan","domain"],opsec:"public",opsecNote:"Scans are public by default and appear in the recent-scans feed. Set visibility to Unlisted or Private, and remember the scanner visits the site."},
-  {name:"Metadefender",url:"https://metadefender.opswat.com",desc:"Multi-scan files for malware using 40+ AV engines. Also supports file sanitization and CDR.",cats:["scan","malware"],tags:["scan","malware"],opsec:"public",opsecNote:"Uploaded files may be retained and shared. Search by hash rather than uploading client files."},
+  {name:"Metadefender",url:"https://metadefender.com",desc:"Multi-scan files for malware using 40+ AV engines. Also supports file sanitization and CDR.",cats:["scan","malware"],tags:["scan","malware"],opsec:"public",opsecNote:"Uploaded files may be retained and shared. Search by hash rather than uploading client files."},
   {name:"URLhaus",url:"https://urlhaus.abuse.ch",desc:"Look up malicious URLs used for malware distribution. Part of the abuse.ch project.",cats:["scan","malware"],tags:["scan","malware"],opsec:"passive",opsecNote:"Searching is passive. Submitting a URL to URLhaus makes it public."},
   {name:"URLVoid",url:"https://www.urlvoid.com",desc:"Check URL reputation and history across multiple blacklist engines and safety services.",cats:["scan","domain"],tags:["scan","domain"],opsec:"public",opsecNote:"Treat lookups as visible to others: recent scans can be listed on the site."},
   {name:"Google Safe Browsing",url:"https://transparencyreport.google.com/safe-browsing/search",desc:"Check if a URL is flagged in Google's Safe Browsing database for malware or phishing.",cats:["scan","intel"],tags:["scan","intel"],opsec:"passive",opsecNote:""},
@@ -613,7 +640,7 @@ const TOOLS = [
   {name:"CVE Details",url:"https://www.cvedetails.com",desc:"Browse and search CVEs by product, vendor, or score. Useful for software vulnerability tracking.",cats:["vuln"],tags:["vuln"],opsec:"reference",opsecNote:""},
   {name:"CIRCL CVE Search",url:"https://cve.circl.lu",desc:"Free API and web interface for CVE vulnerability data from CIRCL Luxembourg. Supports bulk queries.",cats:["vuln"],tags:["vuln"],opsec:"reference",opsecNote:""},
   {name:"Vulners",url:"https://vulners.com",desc:"Vulnerability database and search engine aggregating CVEs, exploits, and security advisories.",cats:["vuln"],tags:["vuln"],opsec:"reference",opsecNote:""},
-  {name:"Shodan Exploits",url:"https://exploits.shodan.io",desc:"Search Shodan's exploit database for vulnerabilities tied to specific software and devices.",cats:["vuln","network"],tags:["vuln","network"],opsec:"reference",opsecNote:""},
+  {name:"Shodan CVEDB",url:"https://cvedb.shodan.io",desc:"Shodan's free CVE database. Look up vulnerabilities by CVE ID or by product.",cats:["vuln","network"],tags:["vuln","network"],opsec:"reference",opsecNote:""},
 
   // ── Breach / Creds ──
   {name:"Have I Been Pwned",url:"https://haveibeenpwned.com",desc:"Check if your email address has appeared in a known data breach. Billions of records indexed.",cats:["breach"],tags:["breach"],opsec:"passive",opsecNote:""},
@@ -643,6 +670,56 @@ const TAG_LABEL = {
   network:"network/iot", vuln:"vulns", breach:"breach/creds", domain:"domain/dns",
   sandbox:"sandbox", study:"study", roadmap:"roadmap", poc:"cve/poc"
 };
+const RECENT_KEY = "cyber-tools-recent";
+const RECENT_MAX = 8;
+let recent = [];
+try {
+  const r = JSON.parse(localStorage.getItem(RECENT_KEY) || "[]");
+  if (Array.isArray(r)) recent = r.filter(x => x && typeof x.name === "string" && typeof x.at === "number");
+} catch(e) {}
+
+function recordUse(name) {
+  if (!TOOLS.some(t => t.name === name)) return;
+  recent = [{ name, at: Date.now() }, ...recent.filter(r => r.name !== name)].slice(0, RECENT_MAX);
+  try { localStorage.setItem(RECENT_KEY, JSON.stringify(recent)); } catch(e) {}
+  renderRecent();
+}
+
+function timeAgo(ms) {
+  const m = Math.round((Date.now() - ms) / 60000);
+  if (m < 1) return "just now";
+  if (m < 60) return `${m}m ago`;
+  const h = Math.round(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.round(h / 24);
+  return d < 30 ? `${d}d ago` : `${Math.round(d / 30)}mo ago`;
+}
+
+function renderRecent() {
+  const box = document.getElementById("recent");
+  const items = recent.map(r => ({ r, t: TOOLS.find(t => t.name === r.name) })).filter(x => x.t);
+  const show = items.length && activeCat === "all" && !searchQ.trim();
+  box.hidden = !show;
+  if (!show) return;
+  box.innerHTML = `
+    <div class="recent-head">
+      <span class="recent-title">Recently used</span>
+      <button class="recent-clear" type="button" id="recent-clear">Clear</button>
+    </div>
+    <div class="recent-list">${items.map(({ r, t }) => `
+      <a class="recent-chip" href="${esc(t.url)}" target="_blank" rel="noopener noreferrer" data-tool="${esc(t.name)}" title="${esc(OPSEC_LABEL[t.opsec] || "")}">
+        <span class="recent-dot ${esc(t.opsec || "")}" aria-hidden="true"></span>${esc(t.name)}<span class="recent-when">${timeAgo(r.at)}</span>
+      </a>`).join("")}
+    </div>`;
+}
+
+// Find the index entry a pivot button belongs to, e.g. "Cisco Talos" -> "Cisco Talos Intelligence".
+function toolForPivot(label) {
+  const base = label.replace(/\s*\(.*\)$/, "");
+  const t = TOOLS.find(t => t.name === base) || TOOLS.find(t => t.name.startsWith(base)) || TOOLS.find(t => base.startsWith(t.name.replace(/\.\w+$/, "")));
+  return t ? t.name : "";
+}
+
 const OPSEC_LABEL = { public:"Submissions public", active:"Contacts target", passive:"Passive lookup", reference:"Reference" };
 const LS_KEY = "cyber-tools-favs";
 const NOTES_KEY = "cyber-tools-notes";
@@ -709,6 +786,7 @@ updateNoteCount();
 function render() {
   const grid = document.getElementById("grid");
   const q = searchQ.toLowerCase();
+  renderRecent();
   const openTa = grid.querySelector(".note-editor textarea");
   if (openTa) draft = openTa.value;
 
@@ -773,7 +851,7 @@ function render() {
           <button class="btn-icon copy-btn" data-url="${t.url}" title="Copy URL" aria-label="Copy URL for ${t.name}">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="5" y="5" width="9" height="9" rx="1.5"/><path d="M3 11V3a1 1 0 011-1h8"/></svg>
           </button>
-          <a class="btn-icon" href="${t.url}" target="_blank" rel="noopener noreferrer" title="Open ${t.name}" aria-label="Open ${t.name} in new tab">
+          <a class="btn-icon open-btn" data-tool="${esc(t.name)}" href="${t.url}" target="_blank" rel="noopener noreferrer" title="Open ${t.name}" aria-label="Open ${t.name} in new tab">
             <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M6 3H3a1 1 0 00-1 1v9a1 1 0 001 1h9a1 1 0 001-1v-3"/><path d="M9 2h5v5"/><path d="M14 2L8 8"/></svg>
           </a>
         </div>
@@ -977,7 +1055,7 @@ const PIVOTS = {
     ["CIRCL CVE Search",v => `https://cve.circl.lu/vuln/${v}`],
     ["Vulners",         v => `https://vulners.com/cve/${v}`],
     ["Exploit-DB",      v => `https://www.exploit-db.com/search?cve=${v.replace(/^CVE-/, "")}`],
-    ["Nomi Sec PoCs",   v => `https://github.com/nomi-sec/PoC-in-GitHub/blob/master/${v.split("-")[1]}/${v}.json`],
+    ["Nomi Sec (PoCs)",   v => `https://github.com/nomi-sec/PoC-in-GitHub/blob/master/${v.split("-")[1]}/${v}.json`],
   ],
 };
 const TYPE_LABEL = { ipv4:"IPv4 address", ipv6:"IPv6 address", domain:"Domain", url:"URL", md5:"MD5 hash", sha1:"SHA-1 hash", sha256:"SHA-256 hash", email:"Email address", cve:"CVE" };
@@ -1038,7 +1116,7 @@ const EXT_ICON = `<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" str
 function pivotGroup(title, value, list, hashType) {
   const links = list.map(([name, fn]) => {
     const href = fn(value, hashType);
-    return href ? `<a class="pivot-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer">${esc(name)}${EXT_ICON}</a>` : "";
+    return href ? `<a class="pivot-link" href="${esc(href)}" target="_blank" rel="noopener noreferrer" data-tool="${esc(toolForPivot(name))}">${esc(name)}${EXT_ICON}</a>` : "";
   }).join("");
   return `<div class="pivot-group"><div class="pivot-group-title">${title}</div><div class="pivot-links">${links}</div></div>`;
 }
@@ -1121,6 +1199,22 @@ document.getElementById("pivot-out").addEventListener("click", e => {
     copyText(defang(pivotCurrent.value, pivotCurrent.type)).then(() => showToast("Copied defanged", null));
   }
 });
+
+function trackToolLink(e) {
+  if (e.type === "auxclick" && e.button !== 1) return;
+  const a = e.target.closest("a[data-tool]");
+  if (a && a.dataset.tool) recordUse(a.dataset.tool);
+}
+["click", "auxclick"].forEach(ev => document.addEventListener(ev, trackToolLink));
+document.getElementById("recent").addEventListener("click", e => {
+  if (e.target.id === "recent-clear") {
+    recent = [];
+    try { localStorage.removeItem(RECENT_KEY); } catch(err) {}
+    renderRecent();
+    showToast("Recently used cleared", null);
+  }
+});
+setInterval(renderRecent, 60000); // keep "5m ago" labels fresh
 
 function showToast(msg, isStar) {
   const t = document.getElementById("toast");
