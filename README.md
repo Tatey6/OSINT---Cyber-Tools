@@ -87,40 +87,6 @@ Press `?` on the site to see these at any time.
 
 Shortcuts never fire while you're typing, and they don't override browser shortcuts like `Ctrl` + `F`.
 
-### Automated link checks
-A GitHub Action checks every tool URL each Monday at 00:00 UTC. It can also be run on demand from the **Actions** tab (**Link check** → **Run workflow**).
-
-- **Broken** (no response, 404 or server error after a retry) and **Moved** (redirects to another site or a login page) tools are reported in a single issue labelled `link-check`.
-- Later runs update that same issue, and it closes itself once everything passes.
-- Sites that block automated checks are listed separately as **Couldn't verify**, rather than being reported as broken.
-
----
-
-## Adding a tool
-
-Open `index.html`, find the `TOOLS` array, and add a line in the right section:
-
-```js
-{name:"Tool Name",url:"https://example.com",desc:"One or two sentences on what it does.",cats:["osint"],tags:["osint"],opsec:"passive",opsecNote:""},
-```
-
-| Field | What goes in it |
-|---|---|
-| `name` | Display name. Must be unique, because favourites and notes are keyed by it. |
-| `url` | The tool's homepage. |
-| `desc` | One or two sentences. |
-| `cats` | Which filter buttons it appears under. |
-| `tags` | The coloured labels shown on the card. Usually the same as `cats`. |
-| `opsec` | One of `public`, `active`, `passive` or `reference`. |
-| `opsecNote` | Anything specific to watch for, or `""` for none. |
-
-**Category values:** `scan`, `intel`, `osint`, `malware`, `network`, `vuln`, `breach`, `domain`, `study`, `poc`. There is also `sandbox`, a tag used on the malware sandboxes.
-
-**Rules:**
-- `cats` and `tags` must always be **lowercase**.
-- Every line ends with `},`.
-- Renaming a tool resets any favourites and notes people have saved against the old name.
-
 ---
 
 ## Repo structure
