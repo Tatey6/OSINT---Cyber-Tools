@@ -54,14 +54,18 @@ The **Passive only** filter shows just the passive and reference tools, which is
 - **Favourites:** star any tool and it sorts to the top. The **Favourites** filter shows only starred tools.
 - **Notes:** add your own notes to any tool, such as what it's best for or its limits. Notes show on the card, are searchable, and have their own **Has notes** filter.
 - **Recently used:** your last 8 tools appear above the grid, including ones opened from the indicator lookup.
-- **Backup:** **Export notes & favourites** downloads a small `.json` file, and **Import** merges it back in on another browser or device.
+- **Backup:** open **Your data** in the top bar. **Export** downloads a small `.json` file, and **Import** merges it back in on another browser or device.
 
 All of this is stored in your own browser only. Nothing is sent anywhere, and nobody else can see your favourites, notes or history.
 
 ### Search, filter, copy and open
-- Search matches tool names, descriptions, tags and your own notes.
-- Filter by category, OPSEC rating, notes or favourites.
-- Every card has buttons to star, add a note, copy the URL, or open the tool in a new tab.
+- Search matches tool names, domains, descriptions, tags and your own notes.
+- The sidebar filters by category or by your own views (Favourites, Has notes, Passive only), with a count on each. On phones it becomes swipeable rows.
+- Every card shows the tool's domain and has buttons to add a note, copy the URL, open the tool in a new tab, or star it. On desktop the buttons appear on hover.
+- Switch between **Grid** and a denser **List** view. Your choice is remembered.
+
+### Light and dark themes
+The site follows your device's light or dark setting. The moon button in the top bar overrides it, and your choice is remembered.
 
 ### Keyboard shortcuts
 Press `?` on the site to see these at any time.
@@ -71,6 +75,7 @@ Press `?` on the site to see these at any time.
 | `/` | Search tools |
 | `i` | Look up an indicator |
 | `a` / `f` / `p` | Show all / favourites / passive only |
+| `v` | Switch between grid and list view |
 | `↓` or `Enter` | From a search or lookup box, jump to the results |
 | `Esc` | Clear and leave a box |
 | Arrow keys, `j` / `k` | Move between tool cards |
@@ -117,12 +122,24 @@ Open `index.html`, find the `TOOLS` array, and add a line in the right section:
 - Renaming a tool resets any favourites and notes people have saved against the old name.
 
 ### Adding a new category
-A new category needs the **same lowercase value** in four places in `index.html`:
+A new category needs the **same lowercase value** in three places in `index.html`:
 
 1. The tool entry: `cats:["newcat"],tags:["newcat"]`
-2. A filter button: `<button class="filter-btn" data-cat="newcat">New Cat</button>`
-3. A tag colour in the CSS: `.tag-newcat { background: var(--sky-dim); color: var(--sky); }`
-4. The `TAG_CLASS` and `TAG_LABEL` lists in the JavaScript: `newcat:"tag-newcat"` and `newcat:"new cat"`
+2. A sidebar button, in the **Categories** list: `<button class="filter-btn" data-cat="newcat"><span class="label">New category</span><span class="count"></span></button>`
+3. The `TAG_LABEL` list in the JavaScript: `newcat:"New category"`
+
+The count next to the button fills in automatically.
+
+---
+
+## Name and logo
+
+`index.html` has two marked spots near the top of the page. Search the file for `LOGO:` and `NAME:`.
+
+- **Logo:** upload the image to the repo (SVG is best), then replace the placeholder `<span class="brand-logo is-placeholder" ...>LOGO</span>` with `<img class="brand-logo" src="logo.svg" alt="">`.
+- **Name:** replace `Site Name` with your site's name.
+- **Browser tab icon:** add `<link rel="icon" href="logo.svg">` inside `<head>`.
+- **Link previews:** a commented block in `<head>` shows the two lines to add so shared links show your name and image in Teams, Slack or email.
 
 ---
 
@@ -135,7 +152,7 @@ README.md                           This file
 .github/scripts/check-links.mjs     The link checker itself
 ```
 
-No frameworks, no build step and no dependencies. GitHub Pages serves `index.html` directly and redeploys about a minute after each commit.
+No frameworks, no build step and no dependencies. The only outside resource is Google Fonts (Archivo and JetBrains Mono). GitHub Pages serves `index.html` directly and redeploys about a minute after each commit.
 
 ---
 
