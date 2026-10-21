@@ -1,0 +1,55 @@
+name: Find new tools
+
+# Every Monday, checks the lists in .github/discovery-sources.json for links added
+# in the past week and opens one "Possible new tools" issue to skim. Last week's
+# issue is closed when the new one opens. Nothing is ever added to the site from
+# here: each tool still goes through the Suggest a tool form and its checks.
+on:
+  schedule:
+    - cron: "0 1 * * 1"   # Mondays 01:00 UTC (9am Perth), an hour after the link check
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Look back this many days (1–90)"
+        required: false
+        default: "7"
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: discover-tools
+  cancel-in-progress: true
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Look for new tools
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          DAYS: ${{ inputs.days || '7' }}
+        run: node .github/scripts/discover-tools.mjs
+
+      - name: Open this week's issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source discovery.env
+          if [ "$FOUND" -eq 0 ]; then
+            echo "Nothing new this time, so no issue opened."
+            exit 0
+          fi
+          gh label create discovery --color c5def5 --description "Weekly list of possible new tools" --force
+          for n in $(gh issue list --label discovery --state open --json number --jq '.[].number'); do
+            gh issue close "$n" --comment "Replaced by this week's list."
+          done
+          gh issue create --title "$(cat discovery-title.txt)" --label discovery --body-file discovery.md
