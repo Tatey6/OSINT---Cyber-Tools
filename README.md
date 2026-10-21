@@ -1,4 +1,4 @@
-# 🔍 Free Cyber Tools Index
+# SpotLight · Free Cyber Tools Index
 
 A searchable index of free, web-based cybersecurity tools, with a built-in indicator lookup, OPSEC ratings on every tool, and weekly checks for dead links. No install and no account needed: open it in a browser and go.
 
@@ -54,7 +54,7 @@ The **Passive only** filter shows just the passive and reference tools, which is
 - **Favourites:** star any tool and it sorts to the top. The **Favourites** filter shows only starred tools.
 - **Notes:** add your own notes to any tool, such as what it's best for or its limits. Notes show on the card, are searchable, and have their own **Has notes** filter.
 - **Recently used:** your last 8 tools appear above the grid, including ones opened from the indicator lookup.
-- **Backup:** open **Your data** in the top bar. **Export** downloads a small `.json` file, and **Import** merges it back in on another browser or device.
+- **Backup:** open **Your data** in the top bar. **Export** downloads a small `.json` file, and **Import** merges it back in on another browser or device. Backups from older versions still import.
 
 All of this is stored in your own browser only. Nothing is sent anywhere, and nobody else can see your favourites, notes or history.
 
@@ -89,18 +89,39 @@ Shortcuts never fire while you're typing, and they don't override browser shortc
 
 ---
 
+## Adding tools
+
+The tool list lives in **`tools.json`**, separate from the page code. To add or change a tool, edit that file on GitHub and commit. See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the format and rules.
+
+Every change to `tools.json` is checked automatically. Mistakes such as an uppercase category, a missing comma, a duplicate tool or an `http://` link are caught, with a plain-English explanation of what to fix.
+
+---
+
 ## Repo structure
 
 ```
-index.html                          The whole site: page, styles, tool list and code
-README.md                           This file
-.github/workflows/link-check.yml    Weekly link-check schedule
-.github/scripts/check-links.mjs     The link checker itself
+index.html                              The page: layout, styles and code
+tools.json                              The tool list, categories and lookup links
+CONTRIBUTING.md                         How to add or edit tools
+LICENSE                                 MIT licence
+README.md                               This file
+.github/workflows/validate.yml          Checks tools.json on every change
+.github/workflows/link-check.yml        Weekly link-check schedule
+.github/scripts/validate-tools.mjs      The tools.json checker
+.github/scripts/check-links.mjs         The link checker
 ```
 
-No frameworks, no build step and no dependencies. The only outside resource is Google Fonts (Archivo and JetBrains Mono). GitHub Pages serves `index.html` directly and redeploys about a minute after each commit.
+No frameworks, no build step and no dependencies. The only outside resource is Google Fonts (Archivo and JetBrains Mono). GitHub Pages serves the files directly and redeploys about a minute after each commit.
+
+To preview locally, run `python3 -m http.server` in the repo folder and open `http://localhost:8000`. Opening `index.html` straight from disk won't load the tool list.
 
 ---
+
+## Licence
+
+Released under the [MIT Licence](LICENSE). © 2026 COPYRIGHT_HOLDER.
+
+Tool names and trademarks belong to their respective owners and are used here only to identify and link to their services.
 
 ## Disclaimer
 

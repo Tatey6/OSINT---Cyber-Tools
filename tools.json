@@ -1,0 +1,686 @@
+{
+  "$comment": "The SpotLight tool list. Edit this file to add, change or remove tools; the site, the validator and the link checker all read it. Field guide: CONTRIBUTING.md",
+  "categories": [
+    { "id": "scan",    "label": "URL / file scan" },
+    { "id": "intel",   "label": "Threat intel" },
+    { "id": "osint",   "label": "OSINT" },
+    { "id": "malware", "label": "Malware" },
+    { "id": "network", "label": "Network / IoT" },
+    { "id": "vuln",    "label": "Vulnerabilities" },
+    { "id": "breach",  "label": "Breach / creds" },
+    { "id": "domain",  "label": "Domain / DNS" },
+    { "id": "study",   "label": "Study" },
+    { "id": "poc",     "label": "CVE / PoC" }
+  ],
+  "extraTags": {
+    "sandbox": "Sandbox",
+    "roadmap": "Roadmap"
+  },
+  "lookupOrder": {
+    "ip":     ["virustotal", "abuseipdb", "greynoise", "shodan", "censys", "otx-alienvault", "cisco-talos", "ipinfo", "bgp-he-net", "leakix", "urlscan", "intelligence-x"],
+    "domain": ["virustotal", "urlscan", "otx-alienvault", "cisco-talos", "google-safe-browsing", "shodan", "whois-lookup", "domaintools-whois", "mxtoolbox", "viewdns", "wayback-machine", "intelligence-x"],
+    "url":    ["virustotal", "urlhaus", "google-safe-browsing", "wayback-machine", "intelligence-x"],
+    "hash":   ["virustotal", "malwarebazaar", "hybrid-analysis", "otx-alienvault", "joe-sandbox", "cisco-talos", "intelligence-x"],
+    "email":  ["intelligence-x", "have-i-been-pwned"],
+    "cve":    ["nvd", "cve-details", "circl-cve-search", "vulners", "exploit-db", "nomi-sec-poc"]
+  },
+  "tools": [
+    {
+      "id": "virustotal",
+      "name": "VirusTotal",
+      "url": "https://www.virustotal.com",
+      "desc": "Analyze suspicious files, URLs, domains and IPs against 70+ antivirus scanners and threat intel blacklists.",
+      "cats": ["scan", "malware", "intel"],
+      "tags": ["scan", "malware", "intel"],
+      "opsec": "public",
+      "opsecNote": "Uploaded files and URLs are shared with the security community, and paid users can download uploaded files. Search by hash instead of uploading anything sensitive.",
+      "lookups": {
+        "ip": "https://www.virustotal.com/gui/ip-address/{value}",
+        "domain": "https://www.virustotal.com/gui/domain/{value}",
+        "url": "https://www.virustotal.com/gui/search/{enc2}",
+        "hash": "https://www.virustotal.com/gui/file/{value}"
+      }
+    },
+    {
+      "id": "urlscan",
+      "name": "URLScan.io",
+      "url": "https://urlscan.io",
+      "desc": "Scan and analyze websites — browses the URL like a real user and records all activity, resources, and links.",
+      "cats": ["scan", "domain"],
+      "tags": ["scan", "domain"],
+      "opsec": "public",
+      "opsecNote": "Scans are public by default and appear in the recent-scans feed. Set visibility to Unlisted or Private, and remember the scanner visits the site.",
+      "lookupLabel": "URLScan (past scans)",
+      "lookups": {
+        "ip": "https://urlscan.io/search/#ip:{enc}",
+        "domain": "https://urlscan.io/search/#domain:{enc}"
+      }
+    },
+    {
+      "id": "metadefender",
+      "name": "Metadefender",
+      "url": "https://metadefender.com",
+      "desc": "Multi-scan files for malware using 40+ AV engines. Also supports file sanitization and CDR.",
+      "cats": ["scan", "malware"],
+      "tags": ["scan", "malware"],
+      "opsec": "public",
+      "opsecNote": "Uploaded files may be retained and shared. Search by hash rather than uploading client files."
+    },
+    {
+      "id": "urlhaus",
+      "name": "URLhaus",
+      "url": "https://urlhaus.abuse.ch",
+      "desc": "Look up malicious URLs used for malware distribution. Part of the abuse.ch project.",
+      "cats": ["scan", "malware"],
+      "tags": ["scan", "malware"],
+      "opsec": "passive",
+      "opsecNote": "Searching is passive. Submitting a URL to URLhaus makes it public.",
+      "lookups": {
+        "url": "https://urlhaus.abuse.ch/browse.php?search={enc}"
+      }
+    },
+    {
+      "id": "urlvoid",
+      "name": "URLVoid",
+      "url": "https://www.urlvoid.com",
+      "desc": "Check URL reputation and history across multiple blacklist engines and safety services.",
+      "cats": ["scan", "domain"],
+      "tags": ["scan", "domain"],
+      "opsec": "public",
+      "opsecNote": "Treat lookups as visible to others: recent scans can be listed on the site."
+    },
+    {
+      "id": "google-safe-browsing",
+      "name": "Google Safe Browsing",
+      "url": "https://transparencyreport.google.com/safe-browsing/search",
+      "desc": "Check if a URL is flagged in Google's Safe Browsing database for malware or phishing.",
+      "cats": ["scan", "intel"],
+      "tags": ["scan", "intel"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookups": {
+        "domain": "https://transparencyreport.google.com/safe-browsing/search?url={enc}",
+        "url": "https://transparencyreport.google.com/safe-browsing/search?url={enc}"
+      }
+    },
+    {
+      "id": "sucuri-sitecheck",
+      "name": "Sucuri SiteCheck",
+      "url": "https://sitecheck.sucuri.net",
+      "desc": "Free remote website scanner that checks for malware, blacklisting, and outdated software.",
+      "cats": ["scan", "malware"],
+      "tags": ["scan", "malware"],
+      "opsec": "active",
+      "opsecNote": "Sucuri's scanner fetches the site, so the target sees the request."
+    },
+    {
+      "id": "securityheaders",
+      "name": "SecurityHeaders.com",
+      "url": "https://securityheaders.com",
+      "desc": "Scan any website and grade its HTTP security headers — CSP, HSTS, X-Frame-Options, and more.",
+      "cats": ["scan", "domain"],
+      "tags": ["scan", "domain"],
+      "opsec": "public",
+      "opsecNote": "Connects to the site, and results appear in the public recent-scans list unless you tick 'Hide results'."
+    },
+    {
+      "id": "ssl-labs",
+      "name": "SSL Labs",
+      "url": "https://www.ssllabs.com/ssltest",
+      "desc": "Deep analysis of SSL/TLS configuration for any web server. Grades certificate chain and cipher suites.",
+      "cats": ["scan", "domain"],
+      "tags": ["scan", "domain"],
+      "opsec": "public",
+      "opsecNote": "Connects to the server, and results appear on the public boards unless you tick 'Do not show the results'."
+    },
+    {
+      "id": "netcraft-site-report",
+      "name": "Netcraft Site Report",
+      "url": "https://sitereport.netcraft.com",
+      "desc": "Website analysis: SSL/TLS details, HTTP security headers, hosting history, SPF/DMARC, and reputation.",
+      "cats": ["scan", "domain"],
+      "tags": ["scan", "domain"],
+      "opsec": "active",
+      "opsecNote": "May fetch the site to build the report."
+    },
+    {
+      "id": "web-check",
+      "name": "Web-Check",
+      "url": "https://web-check.xyz",
+      "desc": "All-in-one OSINT tool for any website: DNS, TLS, headers, open ports, linked domains, cookies, and more.",
+      "cats": ["scan", "domain", "osint"],
+      "tags": ["scan", "domain"],
+      "opsec": "active",
+      "opsecNote": "Makes live requests to the site: DNS, headers, open ports and more."
+    },
+    {
+      "id": "islegitsite",
+      "name": "IsLegitSite",
+      "url": "https://www.islegitsite.com",
+      "desc": "Website trustworthiness checker analyzing reputation, domain age, and public security signals.",
+      "cats": ["scan", "domain"],
+      "tags": ["scan", "domain"],
+      "opsec": "active",
+      "opsecNote": "Checks the live site, so the target may see the request."
+    },
+    {
+      "id": "urlquery",
+      "name": "URLQuery",
+      "url": "https://urlquery.net",
+      "desc": "URL scanner that detects exploit kits, malicious scripts, and suspicious network activity.",
+      "cats": ["scan", "malware"],
+      "tags": ["scan", "malware"],
+      "opsec": "public",
+      "opsecNote": "Submissions are public by default, and the scanner visits the URL."
+    },
+    {
+      "id": "browserling",
+      "name": "Browserling",
+      "url": "https://www.browserling.com",
+      "desc": "Open suspicious URLs in an isolated browser session — safe remote viewing without risk to your machine.",
+      "cats": ["scan"],
+      "tags": ["scan"],
+      "opsec": "active",
+      "opsecNote": "Opens the site from Browserling's servers, so the target sees their IP rather than yours."
+    },
+    {
+      "id": "abuseipdb",
+      "name": "AbuseIPDB",
+      "url": "https://www.abuseipdb.com",
+      "desc": "Community-driven database to report or look up IP addresses associated with hacking, spam, and abuse.",
+      "cats": ["intel", "network"],
+      "tags": ["intel", "network"],
+      "opsec": "passive",
+      "opsecNote": "Checking an IP is passive. Reports you file are public.",
+      "lookups": {
+        "ip": "https://www.abuseipdb.com/check/{value}"
+      }
+    },
+    {
+      "id": "cisco-talos",
+      "name": "Cisco Talos Intelligence",
+      "url": "https://talosintelligence.com",
+      "desc": "IP and domain reputation center from Cisco. Real-time threat detection and global threat intelligence data.",
+      "cats": ["intel", "domain"],
+      "tags": ["intel", "domain"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookupLabel": "Cisco Talos",
+      "lookups": {
+        "ip": "https://talosintelligence.com/reputation_center/lookup?search={enc}",
+        "domain": "https://talosintelligence.com/reputation_center/lookup?search={enc}",
+        "hash": { "url": "https://talosintelligence.com/talos_file_reputation?s={value}", "only": ["sha256"] }
+      }
+    },
+    {
+      "id": "otx-alienvault",
+      "name": "OTX – AlienVault",
+      "url": "https://otx.alienvault.com",
+      "desc": "Open Threat Exchange — community-powered threat intelligence sharing platform with IoC feeds.",
+      "cats": ["intel", "osint"],
+      "tags": ["intel", "osint"],
+      "opsec": "passive",
+      "opsecNote": "Searching is passive. Pulses you create are public by default.",
+      "lookups": {
+        "ip": "https://otx.alienvault.com/indicator/ip/{value}",
+        "domain": "https://otx.alienvault.com/indicator/domain/{value}",
+        "hash": "https://otx.alienvault.com/indicator/file/{value}"
+      }
+    },
+    {
+      "id": "greynoise",
+      "name": "GreyNoise",
+      "url": "https://viz.greynoise.io",
+      "desc": "Identifies IPs scanning the internet — reduces noise for analysts by separating benign scanners from threats.",
+      "cats": ["intel", "network"],
+      "tags": ["intel", "network"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookups": {
+        "ip": "https://viz.greynoise.io/ip/{value}"
+      }
+    },
+    {
+      "id": "pulsedive",
+      "name": "Pulsedive",
+      "url": "https://pulsedive.com",
+      "desc": "Free threat intelligence platform with IoC enrichment. Search indicators, feeds, and threat context.",
+      "cats": ["intel"],
+      "tags": ["intel"],
+      "opsec": "passive",
+      "opsecNote": "Searching is passive. Submitting a new indicator for scanning makes Pulsedive probe it."
+    },
+    {
+      "id": "threat-intelligence-platform",
+      "name": "Threat Intelligence Platform",
+      "url": "https://threatintelligenceplatform.com",
+      "desc": "Quick lookup for IPs and domains — combines WHOIS, DNS, and threat reputation in one view.",
+      "cats": ["intel", "domain"],
+      "tags": ["intel", "domain"],
+      "opsec": "active",
+      "opsecNote": "Pulls live DNS and SSL data, which can contact the target."
+    },
+    {
+      "id": "mitre-attack",
+      "name": "MITRE ATT&CK",
+      "url": "https://attack.mitre.org",
+      "desc": "Knowledge base of adversary tactics and techniques. Reference framework for threat modeling and detection.",
+      "cats": ["intel"],
+      "tags": ["intel"],
+      "opsec": "reference",
+      "opsecNote": ""
+    },
+    {
+      "id": "cloudflare-radar",
+      "name": "Cloudflare Radar",
+      "url": "https://radar.cloudflare.com",
+      "desc": "Internet traffic patterns, DDoS trends, and technology adoption data collected by Cloudflare globally.",
+      "cats": ["intel", "network"],
+      "tags": ["intel", "network"],
+      "opsec": "passive",
+      "opsecNote": "Traffic data is passive. Its URL Scanner is public by default and visits the site."
+    },
+    {
+      "id": "cybergordon",
+      "name": "CyberGordon",
+      "url": "https://cybergordon.com",
+      "desc": "Threat intelligence aggregator querying 30+ sources for IOC reputation checks in a single lookup.",
+      "cats": ["intel"],
+      "tags": ["intel"],
+      "opsec": "public",
+      "opsecNote": "Forwards your indicator to 30+ third-party services, so assume every one of them sees it."
+    },
+    {
+      "id": "ipvoid",
+      "name": "IPVoid",
+      "url": "https://www.ipvoid.com",
+      "desc": "Check an IP address reputation across dozens of blacklist and reputation services at once.",
+      "cats": ["intel", "network"],
+      "tags": ["intel", "network"],
+      "opsec": "passive",
+      "opsecNote": ""
+    },
+    {
+      "id": "osint-framework",
+      "name": "OSINT Framework",
+      "url": "https://osintframework.com",
+      "desc": "Web-based mind-map of OSINT tools and resources organized by category. Great starting point for recon.",
+      "cats": ["osint"],
+      "tags": ["osint"],
+      "opsec": "reference",
+      "opsecNote": ""
+    },
+    {
+      "id": "grayhatwarfare",
+      "name": "GrayhatWarfare",
+      "url": "https://grayhatwarfare.com",
+      "desc": "Search open Amazon S3 buckets — find potentially exposed public cloud storage data.",
+      "cats": ["osint"],
+      "tags": ["osint"],
+      "opsec": "passive",
+      "opsecNote": "Viewing exposed files can be legally sensitive. Don't download data you aren't authorised to access."
+    },
+    {
+      "id": "wayback-machine",
+      "name": "Wayback Machine",
+      "url": "https://web.archive.org",
+      "desc": "Internet Archive — browse historical snapshots of any website for OSINT and deleted content recovery.",
+      "cats": ["osint"],
+      "tags": ["osint"],
+      "opsec": "passive",
+      "opsecNote": "Browsing snapshots is passive. 'Save Page Now' makes the archive fetch the page, and the capture is public.",
+      "lookups": {
+        "domain": "https://web.archive.org/web/*/{value}*",
+        "url": "https://web.archive.org/web/*/{value}"
+      }
+    },
+    {
+      "id": "intelligence-x",
+      "name": "Intelligence X",
+      "url": "https://intelx.io",
+      "desc": "OSINT search engine and data archive for emails, domains, URLs, IPs, and breach data including dark web.",
+      "cats": ["osint", "breach"],
+      "tags": ["osint", "breach"],
+      "opsec": "passive",
+      "opsecNote": "Searches are tied to your account if you're logged in.",
+      "lookups": {
+        "ip": "https://intelx.io/?s={enc}",
+        "domain": "https://intelx.io/?s={enc}",
+        "url": "https://intelx.io/?s={enc}",
+        "hash": "https://intelx.io/?s={value}",
+        "email": "https://intelx.io/?s={enc}"
+      }
+    },
+    {
+      "id": "any-run",
+      "name": "ANY.RUN",
+      "url": "https://any.run",
+      "desc": "Interactive online malware sandbox for DFIR/SOC investigations. Run samples live in a browser-based VM.",
+      "cats": ["malware"],
+      "tags": ["malware", "sandbox"],
+      "opsec": "public",
+      "opsecNote": "Free-plan analyses are public: anyone can see the sample and results. Detonated samples also contact attacker infrastructure."
+    },
+    {
+      "id": "hybrid-analysis",
+      "name": "Hybrid Analysis",
+      "url": "https://www.hybrid-analysis.com",
+      "desc": "Free malware analysis powered by CrowdStrike Falcon Sandbox. Cross-checks with VirusTotal.",
+      "cats": ["malware"],
+      "tags": ["malware", "sandbox"],
+      "opsec": "public",
+      "opsecNote": "Submissions are public by default and shared with partners. Search by hash first.",
+      "lookups": {
+        "hash": "https://www.hybrid-analysis.com/search?query={value}"
+      }
+    },
+    {
+      "id": "malwarebazaar",
+      "name": "MalwareBazaar",
+      "url": "https://bazaar.abuse.ch",
+      "desc": "Search and download confirmed malware samples by hash, family, or tag. Run by the abuse.ch community.",
+      "cats": ["malware", "intel"],
+      "tags": ["malware", "intel"],
+      "opsec": "passive",
+      "opsecNote": "Searching is passive. Uploaded samples are public and downloadable by anyone.",
+      "lookups": {
+        "hash": "https://bazaar.abuse.ch/browse.php?search={hashtype}%3A{value}"
+      }
+    },
+    {
+      "id": "joe-sandbox",
+      "name": "Joe Sandbox",
+      "url": "https://www.joesandbox.com",
+      "desc": "Deep malware analysis with behavioral analytics. Web-based sandbox with detailed execution reports.",
+      "cats": ["malware"],
+      "tags": ["malware", "sandbox"],
+      "opsec": "public",
+      "opsecNote": "Free (Basic) analyses publish their reports. Never upload client documents.",
+      "lookups": {
+        "hash": "https://www.joesandbox.com/search?q={value}"
+      }
+    },
+    {
+      "id": "virustotal-graph",
+      "name": "VirusTotal Graph",
+      "url": "https://www.virustotal.com/graph",
+      "desc": "Visualize and explore relationships between files, URLs, domains, and IPs in VirusTotal's dataset.",
+      "cats": ["malware", "intel", "osint"],
+      "tags": ["malware", "intel"],
+      "opsec": "passive",
+      "opsecNote": "Graphs saved on a free account can be public."
+    },
+    {
+      "id": "shodan",
+      "name": "Shodan",
+      "url": "https://www.shodan.io",
+      "desc": "Search engine for internet-connected devices — find exposed servers, IoT devices, webcams, and industrial systems.",
+      "cats": ["network", "osint"],
+      "tags": ["network", "osint"],
+      "opsec": "passive",
+      "opsecNote": "Searching is passive. On-demand scans (Shodan Scan) actively probe the target.",
+      "lookups": {
+        "ip": "https://www.shodan.io/host/{value}",
+        "domain": "https://www.shodan.io/search?query=hostname%3A{enc}"
+      }
+    },
+    {
+      "id": "censys",
+      "name": "Censys",
+      "url": "https://search.censys.io",
+      "desc": "Discover exposed servers and certificates across the internet. Used for attack surface enumeration.",
+      "cats": ["network", "osint"],
+      "tags": ["network", "osint"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookups": {
+        "ip": "https://search.censys.io/hosts/{value}"
+      }
+    },
+    {
+      "id": "fullhunt",
+      "name": "FullHunt",
+      "url": "https://fullhunt.io",
+      "desc": "External attack surface discovery — find and enumerate your internet-exposed assets and services.",
+      "cats": ["network", "osint"],
+      "tags": ["network", "osint"],
+      "opsec": "passive",
+      "opsecNote": ""
+    },
+    {
+      "id": "leakix",
+      "name": "LeakIX",
+      "url": "https://leakix.net",
+      "desc": "Search engine for exposed services and data leaks across the internet. Indexes misconfigured systems.",
+      "cats": ["network", "osint"],
+      "tags": ["network", "osint"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookups": {
+        "ip": "https://leakix.net/host/{value}"
+      }
+    },
+    {
+      "id": "ipinfo",
+      "name": "IPInfo.io",
+      "url": "https://ipinfo.io",
+      "desc": "IP geolocation, ASN, and company details. Free tier covers 50k lookups per month.",
+      "cats": ["network", "intel"],
+      "tags": ["network", "intel"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookups": {
+        "ip": "https://ipinfo.io/{value}"
+      }
+    },
+    {
+      "id": "bgp-he-net",
+      "name": "BGP.he.net",
+      "url": "https://bgp.he.net",
+      "desc": "Hurricane Electric BGP toolkit — ASN lookup, BGP routing info, DNS records, and network analysis.",
+      "cats": ["network", "domain"],
+      "tags": ["network", "domain"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookups": {
+        "ip": "https://bgp.he.net/ip/{value}"
+      }
+    },
+    {
+      "id": "shodan-monitor",
+      "name": "Shodan Monitor",
+      "url": "https://monitor.shodan.io",
+      "desc": "Monitor your own IP space on Shodan — get alerts when new devices or vulnerabilities appear.",
+      "cats": ["network", "intel"],
+      "tags": ["network", "intel"],
+      "opsec": "passive",
+      "opsecNote": "For monitoring your own IP ranges. Requires a free account."
+    },
+    {
+      "id": "nvd",
+      "name": "NVD – NIST",
+      "url": "https://nvd.nist.gov",
+      "desc": "U.S. government repository of standards-based vulnerability data. Canonical CVE database with CVSS scores.",
+      "cats": ["vuln"],
+      "tags": ["vuln"],
+      "opsec": "reference",
+      "opsecNote": "",
+      "lookups": {
+        "cve": "https://nvd.nist.gov/vuln/detail/{value}"
+      }
+    },
+    {
+      "id": "exploit-db",
+      "name": "Exploit-DB",
+      "url": "https://www.exploit-db.com",
+      "desc": "Archive of public exploits and vulnerable software maintained by Offensive Security for research use.",
+      "cats": ["vuln"],
+      "tags": ["vuln"],
+      "opsec": "reference",
+      "opsecNote": "Downloaded exploit code can trip your own AV/EDR. Use a lab machine.",
+      "lookups": {
+        "cve": "https://www.exploit-db.com/search?cve={cvenum}"
+      }
+    },
+    {
+      "id": "cve-details",
+      "name": "CVE Details",
+      "url": "https://www.cvedetails.com",
+      "desc": "Browse and search CVEs by product, vendor, or score. Useful for software vulnerability tracking.",
+      "cats": ["vuln"],
+      "tags": ["vuln"],
+      "opsec": "reference",
+      "opsecNote": "",
+      "lookups": {
+        "cve": "https://www.cvedetails.com/cve/{value}/"
+      }
+    },
+    {
+      "id": "circl-cve-search",
+      "name": "CIRCL CVE Search",
+      "url": "https://cve.circl.lu",
+      "desc": "Free API and web interface for CVE vulnerability data from CIRCL Luxembourg. Supports bulk queries.",
+      "cats": ["vuln"],
+      "tags": ["vuln"],
+      "opsec": "reference",
+      "opsecNote": "",
+      "lookups": {
+        "cve": "https://cve.circl.lu/vuln/{value}"
+      }
+    },
+    {
+      "id": "vulners",
+      "name": "Vulners",
+      "url": "https://vulners.com",
+      "desc": "Vulnerability database and search engine aggregating CVEs, exploits, and security advisories.",
+      "cats": ["vuln"],
+      "tags": ["vuln"],
+      "opsec": "reference",
+      "opsecNote": "",
+      "lookups": {
+        "cve": "https://vulners.com/cve/{value}"
+      }
+    },
+    {
+      "id": "shodan-cvedb",
+      "name": "Shodan CVEDB",
+      "url": "https://cvedb.shodan.io",
+      "desc": "Shodan's free CVE database. Look up vulnerabilities by CVE ID or by product.",
+      "cats": ["vuln", "network"],
+      "tags": ["vuln", "network"],
+      "opsec": "reference",
+      "opsecNote": ""
+    },
+    {
+      "id": "have-i-been-pwned",
+      "name": "Have I Been Pwned",
+      "url": "https://haveibeenpwned.com",
+      "desc": "Check if your email address has appeared in a known data breach. Billions of records indexed.",
+      "cats": ["breach"],
+      "tags": ["breach"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookups": {
+        "email": { "url": "https://haveibeenpwned.com/", "label": "Have I Been Pwned (paste it in)" }
+      }
+    },
+    {
+      "id": "pwned-passwords",
+      "name": "Pwned Passwords",
+      "url": "https://haveibeenpwned.com/Passwords",
+      "desc": "Check individual passwords against billions of breach records using k-anonymity — your password is never sent.",
+      "cats": ["breach"],
+      "tags": ["breach"],
+      "opsec": "passive",
+      "opsecNote": "Only a partial hash leaves your browser, but never type a live production password into any website."
+    },
+    {
+      "id": "mxtoolbox",
+      "name": "MXToolbox",
+      "url": "https://mxtoolbox.com",
+      "desc": "Free DNS lookups, MX record checks, blacklist monitoring, and email deliverability diagnostic tools.",
+      "cats": ["domain", "network"],
+      "tags": ["domain", "network"],
+      "opsec": "active",
+      "opsecNote": "Queries the domain's DNS and mail servers live.",
+      "lookups": {
+        "domain": "https://mxtoolbox.com/SuperTool.aspx?action=mx%3A{enc}&run=toolpage"
+      }
+    },
+    {
+      "id": "dnsdumpster",
+      "name": "DNSDumpster",
+      "url": "https://dnsdumpster.com",
+      "desc": "Free domain research tool for DNS recon and host discovery. Maps DNS records and related subdomains.",
+      "cats": ["domain", "osint"],
+      "tags": ["domain", "osint"],
+      "opsec": "passive",
+      "opsecNote": ""
+    },
+    {
+      "id": "whois-lookup",
+      "name": "WHOIS Lookup",
+      "url": "https://who.is",
+      "desc": "Look up domain registration details — registrar, creation date, name servers, and contact info.",
+      "cats": ["domain", "osint"],
+      "tags": ["domain", "osint"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookupLabel": "WHOIS (who.is)",
+      "lookups": {
+        "domain": "https://who.is/whois/{value}"
+      }
+    },
+    {
+      "id": "domaintools-whois",
+      "name": "DomainTools WHOIS",
+      "url": "https://whois.domaintools.com",
+      "desc": "Advanced WHOIS lookup with historical records, reverse IP, and domain ownership history.",
+      "cats": ["domain", "osint"],
+      "tags": ["domain", "osint"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "lookups": {
+        "domain": "https://whois.domaintools.com/{value}"
+      }
+    },
+    {
+      "id": "viewdns",
+      "name": "ViewDNS.info",
+      "url": "https://viewdns.info",
+      "desc": "Collection of DNS, WHOIS, and network tools: reverse IP, DNS propagation, traceroute, and more.",
+      "cats": ["domain", "network"],
+      "tags": ["domain", "network"],
+      "opsec": "active",
+      "opsecNote": "Ping, traceroute and port-scan tools contact the target. The record lookups don't.",
+      "lookupLabel": "ViewDNS reverse IP",
+      "lookups": {
+        "domain": "https://viewdns.info/reverseip/?host={enc}&t=1"
+      }
+    },
+    {
+      "id": "paul-jerimy-roadmap",
+      "name": "Paul Jerimy Cyber Roadmap",
+      "url": "https://pauljerimy.com/security-certification-roadmap/",
+      "desc": "Interactive security certification roadmap showing study paths across offensive, defensive, and governance domains.",
+      "cats": ["study"],
+      "tags": ["study", "roadmap"],
+      "opsec": "reference",
+      "opsecNote": ""
+    },
+    {
+      "id": "nomi-sec-poc",
+      "name": "Nomi Sec CVE POCs",
+      "url": "https://github.com/nomi-sec/PoC-in-GitHub",
+      "desc": "Automated aggregation tool that scans GitHub daily to collect Proof of Concept (PoC) code and exploits for newly discovered cybersecurity vulnerabilities.",
+      "cats": ["poc"],
+      "tags": ["poc"],
+      "opsec": "reference",
+      "opsecNote": "PoC code on GitHub is unvetted and sometimes malicious. Only run it in an isolated lab.",
+      "lookupLabel": "Nomi Sec (PoCs)",
+      "lookups": {
+        "cve": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/{cveyear}/{value}.json"
+      }
+    }
+  ]
+}
