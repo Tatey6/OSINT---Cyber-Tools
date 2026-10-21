@@ -17,7 +17,7 @@
     "roadmap": "Roadmap"
   },
   "lookupOrder": {
-    "ip":     ["virustotal", "abuseipdb", "greynoise", "shodan", "censys", "otx-alienvault", "cisco-talos", "ipinfo", "bgp-he-net", "leakix", "urlscan", "intelligence-x"],
+    "ip":     ["virustotal", "abuseipdb", "greynoise", "shodan", "censys", "otx-alienvault", "cisco-talos", "ipinfo", "bgp-he-net", "urlscan", "intelligence-x"],
     "domain": ["virustotal", "urlscan", "otx-alienvault", "cisco-talos", "google-safe-browsing", "shodan", "whois-lookup", "domaintools-whois", "mxtoolbox", "viewdns", "wayback-machine", "intelligence-x"],
     "url":    ["virustotal", "urlhaus", "google-safe-browsing", "wayback-machine", "intelligence-x"],
     "hash":   ["virustotal", "malwarebazaar", "hybrid-analysis", "otx-alienvault", "joe-sandbox", "cisco-talos", "intelligence-x"],
@@ -470,10 +470,7 @@
       "cats": ["network", "osint"],
       "tags": ["network", "osint"],
       "opsec": "passive",
-      "opsecNote": "",
-      "lookups": {
-        "ip": "https://leakix.net/host/{value}"
-      }
+      "opsecNote": "A free account is needed to see host details."
     },
     {
       "id": "ipinfo",
