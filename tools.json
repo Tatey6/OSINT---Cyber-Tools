@@ -301,6 +301,21 @@
       "opsecNote": ""
     },
     {
+      "id": "threatfox",
+      "name": "ThreatFox",
+      "url": "https://threatfox.abuse.ch",
+      "desc": "Search a community database of malware indicators (IPs, domains, URLs and hashes) linked to known malware families.",
+      "cats": ["intel", "malware"],
+      "tags": ["intel", "malware"],
+      "opsec": "passive",
+      "opsecNote": "Searching is passive. Indicators you submit are public.",
+      "lookups": {
+        "ip": "https://threatfox.abuse.ch/browse.php?search=ioc%3A{enc}",
+        "domain": "https://threatfox.abuse.ch/browse.php?search=ioc%3A{enc}"
+      },
+      "added": "2026-10-21"
+    },
+    {
       "id": "osint-framework",
       "name": "OSINT Framework",
       "url": "https://osintframework.com",
