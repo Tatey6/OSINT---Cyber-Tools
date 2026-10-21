@@ -32,6 +32,20 @@ Last week's issue closes when the new one opens. If nothing new turned up, no is
 
 The robot only reads public lists and writes an issue. It never changes `tools.json`.
 
+## Looking after the site
+
+These robots open an issue or pull request when something needs you. Otherwise they stay quiet.
+
+**Link check issue (Mondays).** A tool's home page is broken or has moved. Open the link to confirm. If the tool has moved, update its `url` in `tools.json`. If it's gone for good, remove the tool. The issue closes itself on the next run once everything passes. "Couldn't verify" entries are sites that block robots and can usually be ignored.
+
+**Lookup check issue (1st of the month).** A lookup button's search address has broken or changed. Each row has a sample link: click it and see whether the results page still shows the indicator. If the service changed its search address, find the new format (search for something on the site and copy the address bar), then update that lookup in `tools.json`, replacing the sample indicator with `{value}` or `{enc}`. If the service no longer offers that search, delete the lookup. Many sites load results with JavaScript, so a button can pass this check and still show nothing. If you notice one, fix it the same way.
+
+**Dependabot pull request (monthly, only when needed).** The workflows use shared building blocks from GitHub, such as `actions/checkout`. When one has a new version, Dependabot opens a pull request titled "Update workflow actions". Merge it. If a workflow fails afterwards, revert the pull request from its page and tell whoever maintains the repo.
+
+**README numbers.** These update themselves whenever `tools.json` changes. Don't edit the numbers by hand: they sit between hidden `<!-- ... -->` markers and are overwritten. Everything else in the README is yours to edit.
+
+**Running anything now.** Every robot except the suggestion one has a **Run workflow** button under **Actions**.
+
 ## Editing tools.json by hand
 
 Every tool on the site comes from one file: **`tools.json`**. Edit it on GitHub (open the file, click the pencil), commit, and the site updates about a minute later.

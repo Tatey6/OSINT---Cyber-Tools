@@ -1,6 +1,6 @@
 # SpotLight · Free Cyber Tools Index
 
-A searchable index of free, web-based cybersecurity tools, with a built-in indicator lookup, OPSEC ratings on every tool, and weekly checks for dead links. No install and no account needed: open it in a browser and go.
+A searchable index of free, web-based cybersecurity tools, with a built-in indicator lookup, OPSEC ratings on every tool, and automatic checks that every link and lookup still works. No install and no account needed: open it in a browser and go.
 
 **Live site:** [https://tatey6.github.io/OSINT---Cyber-Tools/](https://tatey6.github.io/OSINT---Cyber-Tools/)
 
@@ -10,20 +10,22 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 
 ## What's included
 
-**55 tools**, each verified to work without a paid account. Most tools sit in more than one category.
+**<!-- TOOL-COUNT -->56<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
 
+<!-- CATEGORY-TABLE -->
 | Category | Tools | Examples |
 |---|---|---|
-| URL / File scan | 14 | VirusTotal, URLScan.io, URLhaus, SSL Labs |
-| Threat intel | 16 | AbuseIPDB, Cisco Talos, OTX AlienVault, GreyNoise |
-| OSINT | 14 | OSINT Framework, Wayback Machine, Intelligence X, Shodan |
-| Malware | 10 | ANY.RUN, Hybrid Analysis, MalwareBazaar, Joe Sandbox |
-| Network / IoT | 14 | Shodan, Censys, LeakIX, BGP.he.net |
-| Vulnerabilities | 6 | NVD, Exploit-DB, CVE Details, Shodan CVEDB |
-| Breach / Creds | 3 | Have I Been Pwned, Pwned Passwords, Intelligence X |
-| Domain / DNS | 15 | MXToolbox, DNSDumpster, DomainTools WHOIS, ViewDNS |
-| Study | 1 | Paul Jerimy Security Certification Roadmap |
-| CVE / PoC | 1 | Nomi Sec PoC-in-GitHub |
+| URL / file scan | 14 | VirusTotal, URLScan.io, Metadefender, URLhaus |
+| Threat intel | 17 | AbuseIPDB, Cisco Talos Intelligence, OTX – AlienVault, GreyNoise |
+| OSINT | 14 | OSINT Framework, GrayhatWarfare, Wayback Machine, Intelligence X |
+| Malware | 11 | ANY.RUN, Hybrid Analysis, MalwareBazaar, Joe Sandbox |
+| Network / IoT | 14 | Shodan, Censys, FullHunt, LeakIX |
+| Vulnerabilities | 6 | NVD – NIST, Exploit-DB, CVE Details, CIRCL CVE Search |
+| Breach / creds | 3 | Have I Been Pwned, Pwned Passwords, Intelligence X |
+| Domain / DNS | 15 | MXToolbox, DNSDumpster, WHOIS Lookup, DomainTools WHOIS |
+| Study | 1 | Paul Jerimy Cyber Roadmap |
+| CVE / PoC | 1 | Nomi Sec CVE POCs |
+<!-- /CATEGORY-TABLE -->
 
 ---
 
@@ -41,12 +43,14 @@ Paste an IP, domain, URL, file hash (MD5, SHA-1 or SHA-256), email address or CV
 ### OPSEC ratings
 Every tool card shows how the tool handles what you give it, with a short note on anything specific to watch for, such as which setting keeps a scan private.
 
+<!-- OPSEC-TABLE -->
 | Rating | Meaning | Tools |
 |---|---|---|
 | 🔴 **Submissions public** | Others can see what you submit | 11 |
 | 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 8 |
-| 🟢 **Passive lookup** | Searches existing data only | 26 |
+| 🟢 **Passive lookup** | Searches existing data only | 27 |
 | ⚪ **Reference** | No indicator needed | 10 |
+<!-- /OPSEC-TABLE -->
 
 The **Passive only** filter shows just the passive and reference tools, which is a safe default view for newer analysts.
 
@@ -115,11 +119,28 @@ README.md                               This file
 .github/workflows/link-check.yml        Weekly link-check schedule
 .github/workflows/suggestions.yml       Checks suggestions and opens pull requests
 .github/workflows/discover-tools.yml    Weekly "Possible new tools" issue
+.github/workflows/lookup-check.yml      Monthly test of every lookup button
+.github/workflows/update-readme.yml     Keeps the numbers in this README up to date
+.github/dependabot.yml                  Monthly updates for the workflows' building blocks
 .github/scripts/validate-tools.mjs      The tools.json checker
 .github/scripts/check-links.mjs         The link checker
 .github/scripts/suggestion.mjs          Turns a suggestion into a tools.json entry
 .github/scripts/discover-tools.mjs      Finds new links in the watched lists
+.github/scripts/check-lookups.mjs       The lookup button tester
+.github/scripts/update-readme.mjs       Recounts tools for this README
 ```
+
+### What runs automatically
+
+| When | What | What you see |
+|---|---|---|
+| Any change to `tools.json` | Checks it for mistakes, then updates the numbers in this README | A green ✓ or red ✗ on the commit |
+| A suggestion is opened or edited | Checks it and previews the tool card | A comment on the issue |
+| You add the **approved** label | Adds the tool to `tools.json` | A pull request to merge |
+| Mondays, 8am Perth | Tests every tool's home page | A **Link check** issue, only if something's broken |
+| Mondays, 9am Perth | Looks for new tools in curated lists | A **Possible new tools** issue |
+| 1st of the month, 10am Perth | Tests every lookup button | A **Lookup check** issue, only if something's broken |
+| Monthly | Checks the workflows' building blocks for updates | A Dependabot pull request, only if there's an update |
 
 No frameworks, no build step and no dependencies. The only outside resource is Google Fonts (Archivo and JetBrains Mono). GitHub Pages serves the files directly and redeploys about a minute after each commit.
 
