@@ -1,0 +1,28 @@
+name: Validate tools.json
+
+# Runs whenever tools.json changes, on a direct commit or a pull request.
+# A red ✗ next to the commit means something in tools.json needs fixing;
+# open the run to see a plain-English list of what's wrong.
+on:
+  push:
+    paths: ["tools.json", ".github/scripts/validate-tools.mjs"]
+  pull_request:
+    paths: ["tools.json", ".github/scripts/validate-tools.mjs"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Check tools.json
+        run: node .github/scripts/validate-tools.mjs

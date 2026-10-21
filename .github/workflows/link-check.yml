@@ -24,6 +24,9 @@ jobs:
         with:
           node-version: 24
 
+      - name: Check tools.json is valid
+        run: node .github/scripts/validate-tools.mjs
+
       - name: Check every tool URL
         run: node .github/scripts/check-links.mjs
 
