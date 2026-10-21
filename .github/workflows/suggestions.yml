@@ -1,0 +1,105 @@
+name: Tool suggestions
+
+# 1. Someone opens or edits a "Suggest a tool" issue → it's checked, and a
+#    comment shows a preview plus anything to fix (one comment, kept up to date).
+# 2. The repo owner adds the "approved" label → the tool is added to tools.json
+#    on a new branch and a pull request is opened, ready to merge.
+#
+# Needs: Settings → Actions → General → Workflow permissions →
+#   "Read and write permissions" and "Allow GitHub Actions to create and approve pull requests".
+on:
+  issues:
+    types: [opened, edited, reopened, labeled]
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+concurrency:
+  group: suggestion-${{ github.event.issue.number }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    if: >-
+      github.event.issue.state == 'open' &&
+      (github.event.action != 'labeled' || github.event.label.name == 'approved')
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      # The issue text is passed in as data (an environment variable), never pasted into a command.
+      - name: Check the suggestion
+        id: check
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          MODE: ${{ github.event.action == 'labeled' && 'apply' || 'check' }}
+        run: node .github/scripts/suggestion.mjs "$MODE"
+
+      - name: Make sure the labels exist
+        if: steps.check.outputs.suggestion == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh label create suggestion --color 0e8a16 --description "A suggested tool" --force
+          gh label create approved --color 1d76db --description "Add this tool (opens a pull request)" --force
+          gh issue edit "${{ github.event.issue.number }}" --add-label suggestion
+
+      - name: Post or update the review comment
+        if: steps.check.outputs.suggestion == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          id=$(gh api "repos/$GITHUB_REPOSITORY/issues/$ISSUE/comments" --paginate \
+                 --jq '[.[] | select(.user.login == "github-actions[bot]" and (.body | startswith("<!-- spotlight-suggestion -->")))][0].id // empty')
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@comment.md > /dev/null
+          else
+            gh issue comment "$ISSUE" --body-file comment.md
+          fi
+
+      # ── Only when "approved" was just added ──
+      - name: Not ready, so take the approved label off again
+        if: github.event.action == 'labeled' && steps.check.outputs.suggestion == 'yes' && steps.check.outputs.ready != 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: gh issue edit "${{ github.event.issue.number }}" --remove-label approved
+
+      - name: Check tools.json still passes
+        if: github.event.action == 'labeled' && steps.check.outputs.ready == 'yes'
+        run: node .github/scripts/validate-tools.mjs
+
+      - name: Open a pull request
+        if: github.event.action == 'labeled' && steps.check.outputs.ready == 'yes'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          ISSUE: ${{ github.event.issue.number }}
+        run: |
+          branch="suggestion/issue-$ISSUE"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add tools.json .github/ISSUE_TEMPLATE/suggest-tool.yml
+          git commit -F pr-title.txt
+          git push --force origin "$branch"
+
+          existing=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$existing" ]; then
+            gh pr edit "$existing" --title "$(cat pr-title.txt)" --body-file pr-body.md
+            url=$(gh pr view "$existing" --json url --jq .url)
+            gh issue comment "$ISSUE" --body "Updated the pull request with the latest details: $url"
+          else
+            url=$(gh pr create --base "${{ github.event.repository.default_branch }}" --head "$branch" \
+                    --title "$(cat pr-title.txt)" --body-file pr-body.md)
+            gh issue comment "$ISSUE" --body "Pull request opened: $url
+
+          Open it, check the **Files changed** tab if you like, then click **Merge pull request**. The tool goes live a minute or two later, and this issue closes automatically."
+          fi
