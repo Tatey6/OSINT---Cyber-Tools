@@ -1,0 +1,15 @@
+# Dependabot keeps the GitHub Actions building blocks used by the workflows
+# (actions/checkout, actions/setup-node) up to date. Once a month, if any have
+# a new version, it opens one pull request. Merge it, and you're done.
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "monthly"
+    groups:
+      actions:
+        patterns: ["*"]
+    commit-message:
+      prefix: "Update workflow actions"
+    labels: ["dependencies"]
