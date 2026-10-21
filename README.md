@@ -119,7 +119,7 @@ To preview locally, run `python3 -m http.server` in the repo folder and open `ht
 
 ## Licence
 
-Released under the [MIT Licence](LICENSE). © 2026 COPYRIGHT_HOLDER.
+Released under the [MIT Licence](LICENSE). © 2026 Tatey6.
 
 Tool names and trademarks belong to their respective owners and are used here only to identify and link to their services.
 
