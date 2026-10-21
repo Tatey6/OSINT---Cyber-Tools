@@ -1,0 +1,57 @@
+name: Lookup check
+
+# On the 1st of each month, tests every indicator lookup button with a harmless
+# sample indicator (8.8.8.8, google.com, the EICAR test hash, Log4Shell's CVE).
+# Opens one issue if any are broken or have changed, updates it while they stay
+# broken, and closes it once everything passes.
+on:
+  schedule:
+    - cron: "0 2 1 * *"   # 1st of the month, 02:00 UTC (10am Perth)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: lookup-check
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v5
+
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+
+      - name: Test every lookup button
+        run: node .github/scripts/check-lookups.mjs
+
+      - name: Open, update or close the lookup-check issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          source lookup-summary.env
+          gh label create lookup-check --color fbca04 --description "Automated report of broken lookup buttons" --force
+          existing=$(gh issue list --label lookup-check --state open --json number --jq '.[0].number // empty')
+
+          if [ "$PROBLEMS" -gt 0 ]; then
+            title="Lookup check: $BROKEN broken, $CHANGED changed"
+            if [ -n "$existing" ]; then
+              gh issue edit "$existing" --title "$title" --body-file lookup-report.md
+              gh issue comment "$existing" --body "Re-checked: still $BROKEN broken, $CHANGED changed. Report above is updated."
+            else
+              gh issue create --title "$title" --label lookup-check --body-file lookup-report.md
+            fi
+          elif [ -n "$existing" ]; then
+            gh issue comment "$existing" --body "All lookups pass now. Closing."
+            gh issue close "$existing"
+          fi
+
+      - name: Add report to the run summary
+        if: always()
+        run: '[ -f lookup-report.md ] && cat lookup-report.md >> "$GITHUB_STEP_SUMMARY" || true'
