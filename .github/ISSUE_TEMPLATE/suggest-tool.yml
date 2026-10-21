@@ -1,0 +1,118 @@
+name: Suggest a tool
+description: Suggest a free cyber tool for SpotLight.
+title: "Suggest: "
+labels: ["suggestion"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for suggesting a tool. A check runs as soon as you submit and replies with a preview of how the tool will appear, plus anything that needs fixing.
+
+        **Only suggest tools that are free to use**, at least for basic lookups, and that you'd trust a level 1 analyst to use.
+
+  - type: input
+    id: name
+    attributes:
+      label: Tool name
+      description: As the tool calls itself.
+      placeholder: ThreatFox
+    validations:
+      required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Link
+      description: The tool's home page. Must start with https://
+      placeholder: https://threatfox.abuse.ch
+    validations:
+      required: true
+
+  - type: textarea
+    id: desc
+    attributes:
+      label: What does it do?
+      description: One sentence for the tool card, under about 300 characters. Say what it does and when you'd use it.
+      placeholder: Search a community database of malware indicators (IPs, domains, URLs and hashes) linked to known malware families.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: cats
+    attributes:
+      label: Categories
+      description: Pick every category it belongs in. If none fit, leave this empty and fill in New category below.
+      multiple: true
+      options:
+        # CATEGORIES-START (kept in step with tools.json automatically)
+        - "URL / file scan"
+        - "Threat intel"
+        - "OSINT"
+        - "Malware"
+        - "Network / IoT"
+        - "Vulnerabilities"
+        - "Breach / creds"
+        - "Domain / DNS"
+        - "Study"
+        - "CVE / PoC"
+        # CATEGORIES-END
+    validations:
+      required: false
+
+  - type: input
+    id: newCat
+    attributes:
+      label: New category
+      description: Optional. Only if no category above fits. A short name for the sidebar, like "Cloud" or "Email security".
+    validations:
+      required: false
+
+  - type: dropdown
+    id: opsec
+    attributes:
+      label: OPSEC rating
+      description: How does the tool handle what you give it? If unsure, pick the more cautious option.
+      options:
+        - "Submissions public: others can see what you submit"
+        - "Contacts target: the tool connects to the site or IP"
+        - "Passive lookup: searches data it already has"
+        - "Reference: no indicator is entered"
+    validations:
+      required: true
+
+  - type: textarea
+    id: opsecNote
+    attributes:
+      label: OPSEC note
+      description: One sentence on anything to watch for, such as "Scans are public unless you tick Private". Needed for Submissions public and Contacts target.
+    validations:
+      required: false
+
+  - type: textarea
+    id: lookups
+    attributes:
+      label: Lookup links
+      description: |
+        Optional, and only for passive lookups. Adds the tool to the indicator lookup box. One per line as `type: link`, where type is ip, domain, url, hash, email or cve. Put `{value}` where the indicator goes, or `{enc}` if it comes after a `?` or `#`. Leave empty if unsure.
+      placeholder: |
+        ip: https://threatfox.abuse.ch/browse.php?search=ioc%3A{enc}
+        domain: https://threatfox.abuse.ch/browse.php?search=ioc%3A{enc}
+      render: text
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: confirm
+    attributes:
+      label: Checks
+      options:
+        - label: The tool is free to use, at least for basic lookups, without a paid account.
+          required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else?
+      description: Optional. Notes for the reviewer, such as why it's useful or how it compares to tools already listed. This isn't added to the site.
+    validations:
+      required: false
