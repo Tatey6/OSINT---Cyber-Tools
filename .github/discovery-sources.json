@@ -1,0 +1,10 @@
+{
+  "$comment": "Lists the weekly tool finder watches. Each week it reports links added to these files in the past 7 days. To add a list: copy a line, change repo (owner/name on GitHub) and file. To stop watching one, delete its line.",
+  "sources": [
+    { "repo": "jivoi/awesome-osint",                    "file": "README.md" },
+    { "repo": "cipher387/osint_stuff_tool_collection",  "file": "README.md" },
+    { "repo": "hslatman/awesome-threat-intelligence",   "file": "README.md" },
+    { "repo": "meirwah/awesome-incident-response",      "file": "README.md" },
+    { "repo": "sbilly/awesome-security",                "file": "README.md" }
+  ]
+}
