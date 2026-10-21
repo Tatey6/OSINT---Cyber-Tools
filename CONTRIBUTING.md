@@ -15,6 +15,23 @@ Things the check catches: a missing category, a dead link, a tool that's already
 
 The robot only adds what's in the form, and only after the **approved** label is added. Only people with write access to the repo can add labels.
 
+## Finding new tools
+
+Every Monday morning (9am Perth), the **Find new tools** robot checks the lists named in `.github/discovery-sources.json` for links added in the past week. It skips GitHub projects, social media and app stores, and anything already in `tools.json` or already suggested. Then it opens one **Possible new tools** issue:
+
+- **Most likely useful:** up to 25 links whose descriptions mention cyber topics such as IPs, domains, malware, CVEs, phishing or breaches.
+- **Other new links:** everything else, collapsed. Mostly general OSINT (people search, social media, maps).
+
+For anything worth adding, click **Suggest it**. The suggestion form opens with the name, link and description filled in. Pick the category and OPSEC rating, check the description reads well, and submit. From there it's the normal suggestion process above.
+
+Last week's issue closes when the new one opens. If nothing new turned up, no issue is opened.
+
+**To run it now,** go to **Actions → Find new tools → Run workflow**. You can set how many days back to look (up to 90).
+
+**To change which lists are watched,** edit `.github/discovery-sources.json`. Each line names a GitHub repository and the file in it that holds the list. A list that can't be read is named at the bottom of the issue.
+
+The robot only reads public lists and writes an issue. It never changes `tools.json`.
+
 ## Editing tools.json by hand
 
 Every tool on the site comes from one file: **`tools.json`**. Edit it on GitHub (open the file, click the pencil), commit, and the site updates about a minute later.

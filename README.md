@@ -95,6 +95,8 @@ Shortcuts never fire while you're typing, and they don't override browser shortc
 
 The tool list lives in **`tools.json`**, separate from the page code. It can also be edited by hand. See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the format, the rules and how suggestions are reviewed.
 
+**New tools are found automatically, too.** Every Monday a robot checks a handful of well-maintained "awesome" lists for links added that week, drops anything already listed or already suggested, ranks the rest by how cyber-related they look, and opens a **Possible new tools** issue. Each tool in it has a **Suggest it** link that opens the form already filled in. Nothing is added without going through the form and a review.
+
 Every change to `tools.json` is checked automatically. Mistakes such as an uppercase category, a missing comma, a duplicate tool or an `http://` link are caught, with a plain-English explanation of what to fix.
 
 ---
@@ -108,12 +110,15 @@ CONTRIBUTING.md                         How to add or edit tools
 LICENSE                                 MIT licence
 README.md                               This file
 .github/ISSUE_TEMPLATE/suggest-tool.yml The "Suggest a tool" form
+.github/discovery-sources.json          The lists the weekly tool finder watches
 .github/workflows/validate.yml          Checks tools.json on every change
 .github/workflows/link-check.yml        Weekly link-check schedule
 .github/workflows/suggestions.yml       Checks suggestions and opens pull requests
+.github/workflows/discover-tools.yml    Weekly "Possible new tools" issue
 .github/scripts/validate-tools.mjs      The tools.json checker
 .github/scripts/check-links.mjs         The link checker
 .github/scripts/suggestion.mjs          Turns a suggestion into a tools.json entry
+.github/scripts/discover-tools.mjs      Finds new links in the watched lists
 ```
 
 No frameworks, no build step and no dependencies. The only outside resource is Google Fonts (Archivo and JetBrains Mono). GitHub Pages serves the files directly and redeploys about a minute after each commit.
