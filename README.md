@@ -89,9 +89,11 @@ Shortcuts never fire while you're typing, and they don't override browser shortc
 
 ---
 
-## Adding tools
+## Suggesting and adding tools
 
-The tool list lives in **`tools.json`**, separate from the page code. To add or change a tool, edit that file on GitHub and commit. See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the format and rules.
+**Know a free tool that should be here?** [Suggest a tool](https://github.com/Tatey6/OSINT---Cyber-Tools/issues/new?template=suggest-tool.yml) using the short form (a free GitHub account is needed). A check replies within a minute with a preview and anything that needs fixing. Once the tool is approved, it's added to the site automatically.
+
+The tool list lives in **`tools.json`**, separate from the page code. It can also be edited by hand. See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the format, the rules and how suggestions are reviewed.
 
 Every change to `tools.json` is checked automatically. Mistakes such as an uppercase category, a missing comma, a duplicate tool or an `http://` link are caught, with a plain-English explanation of what to fix.
 
@@ -105,10 +107,13 @@ tools.json                              The tool list, categories and lookup lin
 CONTRIBUTING.md                         How to add or edit tools
 LICENSE                                 MIT licence
 README.md                               This file
+.github/ISSUE_TEMPLATE/suggest-tool.yml The "Suggest a tool" form
 .github/workflows/validate.yml          Checks tools.json on every change
 .github/workflows/link-check.yml        Weekly link-check schedule
+.github/workflows/suggestions.yml       Checks suggestions and opens pull requests
 .github/scripts/validate-tools.mjs      The tools.json checker
 .github/scripts/check-links.mjs         The link checker
+.github/scripts/suggestion.mjs          Turns a suggestion into a tools.json entry
 ```
 
 No frameworks, no build step and no dependencies. The only outside resource is Google Fonts (Archivo and JetBrains Mono). GitHub Pages serves the files directly and redeploys about a minute after each commit.

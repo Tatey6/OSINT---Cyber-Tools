@@ -1,5 +1,22 @@
 # Adding or editing tools
 
+## The easy way: the suggestion form
+
+1. Open the **[Suggest a tool](https://github.com/Tatey6/OSINT---Cyber-Tools/issues/new?template=suggest-tool.yml)** form (also linked in the site's footer) and fill it in.
+2. Within a minute, a comment appears on the issue with a preview of the tool card, the result of a link check, and anything that needs fixing. To fix something, edit the issue (**⋯ → Edit** on the first post) and the comment updates.
+3. **Reviewer:** when the preview looks right, add the **approved** label. A pull request is opened that adds the tool to `tools.json`.
+4. **Reviewer:** open the pull request and click **Merge pull request**. The tool is live a minute or two later, and the issue closes itself.
+
+**To change a suggestion after approving it,** edit the issue, then remove the **approved** label and add it again. The pull request updates to match.
+
+**To turn a suggestion down,** close the issue with a short comment explaining why.
+
+Things the check catches: a missing category, a dead link, a tool that's already listed (even with a different `www` or `http`), an `http://` link, a badly written lookup line, and a missing OPSEC note on a risky tool. It also flags things worth a human look, such as a link that redirects somewhere else or a site that already has a tool listed.
+
+The robot only adds what's in the form, and only after the **approved** label is added. Only people with write access to the repo can add labels.
+
+## Editing tools.json by hand
+
 Every tool on the site comes from one file: **`tools.json`**. Edit it on GitHub (open the file, click the pencil), commit, and the site updates about a minute later.
 
 A check runs automatically on every change. If you see a red ✗ next to your commit, open it to see a plain-English list of what to fix. The live site skips any broken entry rather than going blank, but fix it promptly so the tool shows up.
@@ -81,6 +98,8 @@ Add it to the `categories` list at the top of `tools.json`:
 ```
 
 The sidebar button appears automatically. Then add `"cloud"` to the `cats` of the tools that belong in it.
+
+New categories created through the suggestion form are added for you. A category you add by hand appears in the form's dropdown after the next approved suggestion. To add it straight away, also add its label between the `CATEGORIES-START` and `CATEGORIES-END` lines in `.github/ISSUE_TEMPLATE/suggest-tool.yml`.
 
 ## Checking your changes before committing
 
