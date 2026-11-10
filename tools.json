@@ -565,6 +565,17 @@
       "added": "2026-11-10"
     },
     {
+      "id": "vpndetection",
+      "name": "VPNDetection",
+      "url": "https://vpndetection.io",
+      "desc": "Checks whether an IP is a VPN, proxy, Tor exit or hosting address. Free, no signup. Also a Chrome extension that looks up an IP you select on any page.",
+      "cats": ["network"],
+      "tags": ["network"],
+      "opsec": "active",
+      "opsecNote": "",
+      "added": "2026-11-10"
+    },
+    {
       "id": "ipgeolocation-io",
       "name": "IPGeolocation.io",
       "url": "https://ipgeolocation.io/",
