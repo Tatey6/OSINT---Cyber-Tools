@@ -316,6 +316,17 @@
       "added": "2026-10-21"
     },
     {
+      "id": "ichi-internet-cyber-health-index",
+      "name": "ICHI Internet Cyber Health Index",
+      "url": "https://ichi.global/",
+      "desc": "Free, source-transparent daily barometer of internet-wide cyber health. Aggregates 28 live threat intel feeds (CISA KEV, EPSS, ransomware trackers, C2 infra, DShield) into a composite hourly score. Useful for situational awareness — not an indicator lookup.",
+      "cats": ["intel"],
+      "tags": ["intel"],
+      "opsec": "reference",
+      "opsecNote": "",
+      "added": "2026-11-10"
+    },
+    {
       "id": "osint-framework",
       "name": "OSINT Framework",
       "url": "https://osintframework.com",
