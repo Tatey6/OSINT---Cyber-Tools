@@ -116,6 +116,13 @@ To limit a hash lookup to one hash type, or give the button its own label:
 "email": { "url": "https://example.com/", "label": "Example (paste it in)" }
 ```
 
+**Finding a lookup link for a tool (about a minute):**
+
+1. On the tool's site, search for a harmless test value: `8.8.8.8` (IP), `google.com` (domain) or `test@example.com` (email).
+2. When the results appear, look at the address bar. If the test value is in the address (such as `…/ip/8.8.8.8` or `…?q=google.com`), copy it. If the address didn't change, the site doesn't support lookup links, so leave it out.
+3. Check it: swap the value in the address for another one (`1.1.1.1` or `example.com`) and press Enter. If the results change, it works.
+4. Replace the test value with `{value}`, or `{enc}` if it comes after a `?` or `#`, for example `ip: https://example.com/ip/{value}`.
+
 **Only add passive lookups.** A lookup link must search data the tool already has. Never add a link that makes a service scan, visit or publish the indicator.
 
 Lookup buttons appear in the order listed in `lookupOrder` at the top of the file. Tools not listed there appear after, in file order.

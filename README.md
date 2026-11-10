@@ -96,7 +96,7 @@ Shortcuts never fire while you're typing, and they don't override browser shortc
 
 ## Suggesting and adding tools
 
-**Know a free tool that should be here?** [Suggest a tool](https://github.com/Tatey6/OSINT---Cyber-Tools/issues/new?template=suggest-tool.yml) using the short form (a free GitHub account is needed). A check replies within a minute with a preview and anything that needs fixing. Once the tool is approved, it's added to the site automatically.
+**Know a free tool that should be here?** [Suggest a tool](https://github.com/Tatey6/OSINT---Cyber-Tools/issues/new?template=suggest-tool.yml) using the short form (a free GitHub account is needed). A check replies within a minute with a preview and anything that needs fixing. Once the tool is approved, it's added to the site automatically. Blank issues are turned off, so every suggestion goes through the form and its checks.
 
 The tool list lives in **`tools.json`**, separate from the page code. It can also be edited by hand. See **[CONTRIBUTING.md](CONTRIBUTING.md)** for the format, the rules and how suggestions are reviewed.
 
@@ -115,6 +115,7 @@ CONTRIBUTING.md                         How to add or edit tools
 LICENSE                                 MIT licence
 README.md                               This file
 .github/ISSUE_TEMPLATE/suggest-tool.yml The "Suggest a tool" form
+.github/ISSUE_TEMPLATE/config.yml       Turns off blank issues, so suggestions use the form
 .github/discovery-sources.json          The lists the weekly tool finder watches
 .github/workflows/validate.yml          Checks tools.json on every change
 .github/workflows/link-check.yml        Weekly link-check schedule
