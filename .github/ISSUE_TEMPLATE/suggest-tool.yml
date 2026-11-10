@@ -55,6 +55,7 @@ body:
         - "Domain / DNS"
         - "Study"
         - "CVE / PoC"
+        - "Email"
         # CATEGORIES-END
     validations:
       required: false

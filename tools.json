@@ -10,7 +10,8 @@
     { "id": "breach",  "label": "Breach / creds" },
     { "id": "domain",  "label": "Domain / DNS" },
     { "id": "study",   "label": "Study" },
-    { "id": "poc",     "label": "CVE / PoC" }
+    { "id": "poc",     "label": "CVE / PoC" },
+    { "id": "email",   "label": "Email" }
   ],
   "extraTags": {
     "sandbox": "Sandbox",
@@ -715,6 +716,17 @@
       "lookups": {
         "cve": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/{cveyear}/{value}.json"
       }
+    },
+    {
+      "id": "uchecker",
+      "name": "uChecker",
+      "url": "https://uchecker.net/tools",
+      "desc": "Bulk email list verification plus 13 free DNS tools (SPF, DKIM, DMARC, BIMI generators and checkers) without registration.",
+      "cats": ["email"],
+      "tags": ["email"],
+      "opsec": "active",
+      "opsecNote": "",
+      "added": "2026-11-10"
     }
   ]
 }
