@@ -396,8 +396,8 @@
       "desc": "Free, open search over ransomware leaks, stealer logs, traditional breaches and leads, by company, domain or email.",
       "cats": ["osint"],
       "tags": ["osint"],
-      "opsec": "reference",
-      "opsecNote": "",
+      "opsec": "passive",
+      "opsecNote": "Searching is passive, but your search terms (company, domain or email) may be logged by the service.",
          "added": "2026-11-10"
     },
     {
@@ -560,8 +560,8 @@
       "desc": "Free IP analysis toolkit: purity and risk score, WHOIS/RDAP, reverse DNS, IPv6 lookup, blacklist status, plus per-provider availability checks for ChatGPT, Claude and Gemini across cloud vendors. No signup required.",
       "cats": ["network"],
       "tags": ["network"],
-      "opsec": "active",
-      "opsecNote": "",
+      "opsec": "passive",
+      "opsecNote": "Lookups use existing data (WHOIS/RDAP, blacklists, reverse DNS). The page also shows your own IP and connection details.",
       "added": "2026-11-10"
     },
     {
@@ -571,8 +571,8 @@
       "desc": "Checks whether an IP is a VPN, proxy, Tor exit or hosting address. Free, no signup. Also a Chrome extension that looks up an IP you select on any page.",
       "cats": ["network"],
       "tags": ["network"],
-      "opsec": "active",
-      "opsecNote": "",
+      "opsec": "passive",
+      "opsecNote": "Checks the IP against existing data. The Chrome extension sends any IP you select on a page to their servers.",
       "added": "2026-11-10"
     },
     {
@@ -756,7 +756,7 @@
       "cats": ["domain"],
       "tags": ["domain"],
       "opsec": "active",
-      "opsecNote": "",
+      "opsecNote": "Fetches each domain's DNS records and SSL certificate live, so the target may see the requests.",
       "added": "2026-11-10"
     },
     {
@@ -791,7 +791,7 @@
       "cats": ["email"],
       "tags": ["email"],
       "opsec": "active",
-      "opsecNote": "",
+      "opsecNote": "Email verification contacts the recipient's mail server, and any list you upload is shared with the service.",
       "added": "2026-11-10"
     }
   ]
