@@ -10,21 +10,22 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 
 ## What's included
 
-**<!-- TOOL-COUNT -->58<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
+**<!-- TOOL-COUNT -->63<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
 
 <!-- CATEGORY-TABLE -->
 | Category | Tools | Examples |
 |---|---|---|
 | URL / file scan | 14 | VirusTotal, URLScan.io, Metadefender, URLhaus |
-| Threat intel | 18 | AbuseIPDB, Cisco Talos Intelligence, OTX – AlienVault, GreyNoise |
-| OSINT | 14 | OSINT Framework, GrayhatWarfare, Wayback Machine, Intelligence X |
+| Threat intel | 19 | AbuseIPDB, Cisco Talos Intelligence, OTX – AlienVault, GreyNoise |
+| OSINT | 16 | OSINT Framework, GrayhatWarfare, Wayback Machine, Intelligence X |
 | Malware | 11 | ANY.RUN, Hybrid Analysis, MalwareBazaar, Joe Sandbox |
-| Network / IoT | 15 | Shodan, Censys, FullHunt, LeakIX |
+| Network / IoT | 16 | Shodan, Censys, FullHunt, LeakIX |
 | Vulnerabilities | 6 | NVD – NIST, Exploit-DB, CVE Details, CIRCL CVE Search |
 | Breach / creds | 3 | Have I Been Pwned, Pwned Passwords, Intelligence X |
 | Domain / DNS | 15 | MXToolbox, DNSDumpster, WHOIS Lookup, DomainTools WHOIS |
 | Study | 1 | Paul Jerimy Cyber Roadmap |
 | CVE / PoC | 1 | Nomi Sec CVE POCs |
+| Email | 1 | uChecker |
 <!-- /CATEGORY-TABLE -->
 
 ---
@@ -47,9 +48,9 @@ Every tool card shows how the tool handles what you give it, with a short note o
 | Rating | Meaning | Tools |
 |---|---|---|
 | 🔴 **Submissions public** | Others can see what you submit | 11 |
-| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 9 |
-| 🟢 **Passive lookup** | Searches existing data only | 27 |
-| ⚪ **Reference** | No indicator needed | 11 |
+| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 10 |
+| 🟢 **Passive lookup** | Searches existing data only | 30 |
+| ⚪ **Reference** | No indicator needed | 12 |
 <!-- /OPSEC-TABLE -->
 
 The **Passive only** filter shows just the passive and reference tools, which is a safe default view for newer analysts.
