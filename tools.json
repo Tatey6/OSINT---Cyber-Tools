@@ -584,6 +584,9 @@
       "tags": ["network"],
       "opsec": "passive",
       "opsecNote": "",
+      "lookups": {
+        "ip": "https://ipgeolocation.io/browse/ip/{value}"
+      },
       "added": "2026-11-10"
     },
     {
