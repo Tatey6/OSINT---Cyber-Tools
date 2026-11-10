@@ -520,6 +520,17 @@
       "opsecNote": "For monitoring your own IP ranges. Requires a free account."
     },
     {
+      "id": "pureip-app",
+      "name": "pureip.app",
+      "url": "https://pureip.app/",
+      "desc": "Free IP analysis toolkit: purity and risk score, WHOIS/RDAP, reverse DNS, IPv6 lookup, blacklist status, plus per-provider availability checks for ChatGPT, Claude and Gemini across cloud vendors. No signup required.",
+      "cats": ["network"],
+      "tags": ["network"],
+      "opsec": "active",
+      "opsecNote": "",
+      "added": "2026-11-10"
+    },
+    {
       "id": "nvd",
       "name": "NVD – NIST",
       "url": "https://nvd.nist.gov",
