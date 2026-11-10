@@ -48,9 +48,9 @@ Every tool card shows how the tool handles what you give it, with a short note o
 | Rating | Meaning | Tools |
 |---|---|---|
 | 🔴 **Submissions public** | Others can see what you submit | 11 |
-| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 12 |
-| 🟢 **Passive lookup** | Searches existing data only | 30 |
-| ⚪ **Reference** | No indicator needed | 12 |
+| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 10 |
+| 🟢 **Passive lookup** | Searches existing data only | 33 |
+| ⚪ **Reference** | No indicator needed | 11 |
 <!-- /OPSEC-TABLE -->
 
 The **Passive only** filter shows just the passive and reference tools, which is a safe default view for newer analysts.
