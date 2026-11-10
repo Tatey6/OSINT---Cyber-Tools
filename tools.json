@@ -390,6 +390,17 @@
       }
     },
     {
+      "id": "onion-lookup",
+      "name": "onion-lookup",
+      "url": "https://onion.ail-project.org/",
+      "desc": "onion-lookup is a service (web, API) for checking the existence of Tor hidden services and retrieving their associated metadata. onion-lookup relies on an private AIL instance to obtain the metadata.",
+      "cats": ["osint"],
+      "tags": ["osint"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "added": "2026-11-10"
+    },
+    {
       "id": "any-run",
       "name": "ANY.RUN",
       "url": "https://any.run",
