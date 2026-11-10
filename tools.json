@@ -397,6 +397,8 @@
       "cats": ["osint"],
       "tags": ["osint"],
       "opsec": "reference",
+      "opsecNote": "",
+         "added": "2026-11-10"
     },
     {
       "id": "onion-lookup",
