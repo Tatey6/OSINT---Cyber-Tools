@@ -554,6 +554,17 @@
       "added": "2026-11-10"
     },
     {
+      "id": "ipgeolocation-io",
+      "name": "IPGeolocation.io",
+      "url": "https://ipgeolocation.io/",
+      "desc": "IP lookup API: geolocation, ASN, time zone and abuse contact, plus VPN, proxy, Tor and bot detection with a threat score. Partly free (1,000 requests a day; security data on paid plans)",
+      "cats": ["network"],
+      "tags": ["network"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "added": "2026-11-10"
+    },
+    {
       "id": "nvd",
       "name": "NVD – NIST",
       "url": "https://nvd.nist.gov",
