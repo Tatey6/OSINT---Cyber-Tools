@@ -693,6 +693,17 @@
       }
     },
     {
+      "id": "warnwell",
+      "name": "Warnwell",
+      "url": "https://warnwell.com/",
+      "desc": "Bulk domain health check: SPF, DKIM, DMARC, spoofing risk, DNSSEC, expiry dates, SSL certificates and parked domains for many domains at once. Free, no signup",
+      "cats": ["domain"],
+      "tags": ["domain"],
+      "opsec": "active",
+      "opsecNote": "",
+      "added": "2026-11-10"
+    },
+    {
       "id": "paul-jerimy-roadmap",
       "name": "Paul Jerimy Cyber Roadmap",
       "url": "https://pauljerimy.com/security-certification-roadmap/",
