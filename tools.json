@@ -327,6 +327,17 @@
       "added": "2026-11-10"
     },
     {
+      "id": "whiteintel",
+      "name": "WhiteIntel",
+      "url": "https://whiteintel.io/",
+      "desc": "A dark-web based search engine for detecting data breaches from malicious malware networks.",
+      "cats": ["intel"],
+      "tags": ["intel"],
+      "opsec": "passive",
+      "opsecNote": "",
+      "added": "2026-11-10"
+    },
+    {
       "id": "osint-framework",
       "name": "OSINT Framework",
       "url": "https://osintframework.com",
