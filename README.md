@@ -10,7 +10,7 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 
 ## What's included
 
-**<!-- TOOL-COUNT -->59<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
+**<!-- TOOL-COUNT -->60<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
 
 <!-- CATEGORY-TABLE -->
 | Category | Tools | Examples |
@@ -25,6 +25,7 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 | Domain / DNS | 15 | MXToolbox, DNSDumpster, WHOIS Lookup, DomainTools WHOIS |
 | Study | 1 | Paul Jerimy Cyber Roadmap |
 | CVE / PoC | 1 | Nomi Sec CVE POCs |
+| Email | 1 | uChecker |
 <!-- /CATEGORY-TABLE -->
 
 ---
@@ -47,7 +48,7 @@ Every tool card shows how the tool handles what you give it, with a short note o
 | Rating | Meaning | Tools |
 |---|---|---|
 | 🔴 **Submissions public** | Others can see what you submit | 11 |
-| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 9 |
+| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 10 |
 | 🟢 **Passive lookup** | Searches existing data only | 28 |
 | ⚪ **Reference** | No indicator needed | 11 |
 <!-- /OPSEC-TABLE -->
