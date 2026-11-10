@@ -390,6 +390,17 @@
       }
     },
     {
+      "id": "breach-house",
+      "name": "Breach House",
+      "url": "https://breach.house/",
+      "desc": "Free, open search over ransomware leaks, stealer logs, traditional breaches and leads, by company, domain or email.",
+      "cats": ["osint"],
+      "tags": ["osint"],
+      "opsec": "reference",
+      "opsecNote": "",
+         "added": "2026-11-10"
+    },
+    {
       "id": "onion-lookup",
       "name": "onion-lookup",
       "url": "https://onion.ail-project.org/",
