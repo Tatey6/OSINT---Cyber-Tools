@@ -1,17 +1,18 @@
 {
   "$comment": "The SpotLight tool list. Edit this file to add, change or remove tools; the site, the validator and the link checker all read it. Field guide: CONTRIBUTING.md",
   "categories": [
-    { "id": "scan",    "label": "URL / file scan" },
-    { "id": "intel",   "label": "Threat intel" },
-    { "id": "osint",   "label": "OSINT" },
-    { "id": "malware", "label": "Malware" },
-    { "id": "network", "label": "Network / IoT" },
-    { "id": "vuln",    "label": "Vulnerabilities" },
-    { "id": "breach",  "label": "Breach / creds" },
-    { "id": "domain",  "label": "Domain / DNS" },
-    { "id": "study",   "label": "Study" },
-    { "id": "poc",     "label": "CVE / PoC" },
-    { "id": "email",   "label": "Email" }
+    { "id": "scan",        "label": "URL / file scan" },
+    { "id": "intel",       "label": "Threat intel" },
+    { "id": "osint",       "label": "OSINT" },
+    { "id": "malware",     "label": "Malware" },
+    { "id": "network",     "label": "Network / IoT" },
+    { "id": "vuln",        "label": "Vulnerabilities" },
+    { "id": "breach",      "label": "Breach / creds" },
+    { "id": "domain",      "label": "Domain / DNS" },
+    { "id": "study",       "label": "Study" },
+    { "id": "poc",         "label": "CVE / PoC" },
+    { "id": "email",       "label": "Email" },
+    { "id": "web-archive", "label": "Web Archive" }
   ],
   "extraTags": {
     "sandbox": "Sandbox",
@@ -807,6 +808,21 @@
       "opsec": "active",
       "opsecNote": "Email verification contacts the recipient's mail server, and any list you upload is shared with the service.",
       "added": "2026-11-10"
+    },
+    {
+      "id": "ghostarchive",
+      "name": "Ghostarchive",
+      "url": "https://ghostarchive.org/",
+      "desc": "Free web archive that uses ReplayWeb.page for viewing archived sites",
+      "cats": ["web-archive"],
+      "tags": ["web-archive"],
+      "opsec": "passive",
+      "opsecNote": "Searching is passive. Archiving a new page makes Ghostarchive fetch it from the site, and the copy is public.",
+      "lookups": {
+        "url": "https://ghostarchive.org/search?term={enc}",
+        "domain": "https://ghostarchive.org/search?term={enc}"
+      },
+      "added": "2026-11-13"
     }
   ]
 }
