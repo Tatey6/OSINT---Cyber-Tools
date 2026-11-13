@@ -424,6 +424,17 @@
       "added": "2026-11-13"
     },
     {
+      "id": "lullar",
+      "name": "Lullar",
+      "url": "https://com.lullar.com",
+      "desc": "Free online people search by username, email or name across 170+ social media platforms. Returns direct profile links, no sign-up, works in 22 languages. Online since 2008.",
+      "cats": ["osint"],
+      "tags": ["osint"],
+      "opsec": "active",
+      "opsecNote": "",
+      "added": "2026-11-13"
+    },
+    {
       "id": "any-run",
       "name": "ANY.RUN",
       "url": "https://any.run",
