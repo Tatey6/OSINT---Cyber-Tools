@@ -398,7 +398,7 @@
       "tags": ["osint"],
       "opsec": "passive",
       "opsecNote": "Searching is passive, but your search terms (company, domain or email) may be logged by the service.",
-         "added": "2026-11-10"
+      "added": "2026-11-10"
     },
     {
       "id": "onion-lookup",
@@ -410,6 +410,17 @@
       "opsec": "passive",
       "opsecNote": "",
       "added": "2026-11-10"
+    },
+    {
+      "id": "tormap",
+      "name": "TorMap",
+      "url": "https://tormap.org/",
+      "desc": "Search for thousands of Tor network relays",
+      "cats": ["osint"],
+      "tags": ["osint"],
+      "opsec": "reference",
+      "opsecNote": "",
+      "added": "2026-11-13"
     },
     {
       "id": "any-run",
