@@ -10,14 +10,14 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 
 ## What's included
 
-**<!-- TOOL-COUNT -->65<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
+**<!-- TOOL-COUNT -->66<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
 
 <!-- CATEGORY-TABLE -->
 | Category | Tools | Examples |
 |---|---|---|
 | URL / file scan | 14 | VirusTotal, URLScan.io, Metadefender, URLhaus |
 | Threat intel | 19 | AbuseIPDB, Cisco Talos Intelligence, OTX – AlienVault, GreyNoise |
-| OSINT | 16 | OSINT Framework, GrayhatWarfare, Wayback Machine, Intelligence X |
+| OSINT | 17 | OSINT Framework, GrayhatWarfare, Wayback Machine, Intelligence X |
 | Malware | 11 | ANY.RUN, Hybrid Analysis, MalwareBazaar, Joe Sandbox |
 | Network / IoT | 17 | Shodan, Censys, FullHunt, LeakIX |
 | Vulnerabilities | 6 | NVD – NIST, Exploit-DB, CVE Details, CIRCL CVE Search |
@@ -50,7 +50,7 @@ Every tool card shows how the tool handles what you give it, with a short note o
 | 🔴 **Submissions public** | Others can see what you submit | 11 |
 | 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 10 |
 | 🟢 **Passive lookup** | Searches existing data only | 33 |
-| ⚪ **Reference** | No indicator needed | 11 |
+| ⚪ **Reference** | No indicator needed | 12 |
 <!-- /OPSEC-TABLE -->
 
 The **Passive only** filter shows just the passive and reference tools, which is a safe default view for newer analysts.
