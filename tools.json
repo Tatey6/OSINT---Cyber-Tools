@@ -430,8 +430,8 @@
       "desc": "Free online people search by username, email or name across 170+ social media platforms. Returns direct profile links, no sign-up, works in 22 languages. Online since 2008.",
       "cats": ["osint"],
       "tags": ["osint"],
-      "opsec": "active",
-      "opsecNote": "",
+      "opsec": "passive",
+      "opsecNote": "Search terms go to Lullar. The site also pushes paid Spokeo reports.",
       "added": "2026-11-13"
     },
     {
