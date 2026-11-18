@@ -129,7 +129,7 @@ export function validate(data) {
     // OPSEC
     if (!OPSEC.includes(t.opsec)) err(where, `opsec "${t.opsec ?? ""}" must be one of: ${OPSEC.join(", ")}.${suggest(t.opsec, OPSEC)}`);
     if (t.opsecNote !== undefined && typeof t.opsecNote !== "string") err(where, "opsecNote must be text (use \"\" for none).");
-    if ((t.opsec === "public" || t.opsec === "active") && !(t.opsecNote || "").trim()) warn(where, `is rated "${t.opsec}" but has no opsecNote. Say what becomes public or what gets contacted.`);
+    if ((t.opsec === "public" || t.opsec === "active") && !(t.opsecNote || "").trim()) err(where, `is rated "${t.opsec}" but has no opsecNote. Say what becomes public or what gets contacted.`);
 
     // lookups
     if (t.lookupLabel !== undefined && (typeof t.lookupLabel !== "string" || !t.lookupLabel.trim())) err(where, "lookupLabel must be text.");
