@@ -484,16 +484,6 @@
       }
     },
     {
-      "id": "virustotal-graph",
-      "name": "VirusTotal Graph",
-      "url": "https://www.virustotal.com/graph",
-      "desc": "Visualize and explore relationships between files, URLs, domains, and IPs in VirusTotal's dataset.",
-      "cats": ["malware", "intel", "osint"],
-      "tags": ["malware", "intel"],
-      "opsec": "passive",
-      "opsecNote": "Graphs saved on a free account can be public."
-    },
-    {
       "id": "shodan",
       "name": "Shodan",
       "url": "https://www.shodan.io",
