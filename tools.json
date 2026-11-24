@@ -9,14 +9,10 @@
     { "id": "vuln",        "label": "Vulnerabilities" },
     { "id": "breach",      "label": "Breach / creds" },
     { "id": "domain",      "label": "Domain / DNS" },
-    { "id": "study",       "label": "Study" },
-    { "id": "poc",         "label": "CVE / PoC" },
-    { "id": "email",       "label": "Email" },
-    { "id": "web-archive", "label": "Web Archive" }
+    { "id": "email",       "label": "Email" }
   ],
   "extraTags": {
-    "sandbox": "Sandbox",
-    "roadmap": "Roadmap"
+    "sandbox": "Sandbox"
   },
   "lookupOrder": {
     "ip":     ["virustotal", "abuseipdb", "greynoise", "shodan", "censys", "otx-alienvault", "cisco-talos", "ipinfo", "bgp-he-net", "urlscan", "intelligence-x"],
@@ -24,7 +20,7 @@
     "url":    ["virustotal", "urlhaus", "google-safe-browsing", "wayback-machine", "intelligence-x"],
     "hash":   ["virustotal", "malwarebazaar", "hybrid-analysis", "otx-alienvault", "joe-sandbox", "cisco-talos", "intelligence-x"],
     "email":  ["intelligence-x", "have-i-been-pwned"],
-    "cve":    ["nvd", "cve-details", "circl-cve-search", "vulners", "exploit-db", "nomi-sec-poc"]
+    "cve":    ["nvd", "cve-details", "circl-cve-search", "vulners", "exploit-db"]
   },
   "tools": [
     {
@@ -435,17 +431,6 @@
       "added": "2026-11-13"
     },
     {
-      "id": "lullar",
-      "name": "Lullar",
-      "url": "https://com.lullar.com",
-      "desc": "Free online people search by username, email or name across 170+ social media platforms. Returns direct profile links, no sign-up, works in 22 languages. Online since 2008.",
-      "cats": ["osint"],
-      "tags": ["osint"],
-      "opsec": "passive",
-      "opsecNote": "Search terms go to Lullar. The site also pushes paid Spokeo reports.",
-      "added": "2026-11-13"
-    },
-    {
       "id": "any-run",
       "name": "ANY.RUN",
       "url": "https://any.run",
@@ -566,27 +551,6 @@
       "lookups": {
         "ip": "https://bgp.he.net/ip/{value}"
       }
-    },
-    {
-      "id": "shodan-monitor",
-      "name": "Shodan Monitor",
-      "url": "https://monitor.shodan.io",
-      "desc": "Monitor your own IP space on Shodan — get alerts when new devices or vulnerabilities appear.",
-      "cats": ["network", "intel"],
-      "tags": ["network", "intel"],
-      "opsec": "passive",
-      "opsecNote": "For monitoring your own IP ranges. Requires a free account."
-    },
-    {
-      "id": "pureip-app",
-      "name": "pureip.app",
-      "url": "https://pureip.app/",
-      "desc": "Free IP analysis toolkit: purity and risk score, WHOIS/RDAP, reverse DNS, IPv6 lookup, blacklist status, plus per-provider availability checks for ChatGPT, Claude and Gemini across cloud vendors. No signup required.",
-      "cats": ["network"],
-      "tags": ["network"],
-      "opsec": "passive",
-      "opsecNote": "Lookups use existing data (WHOIS/RDAP, blacklists, reverse DNS). The page also shows your own IP and connection details.",
-      "added": "2026-11-10"
     },
     {
       "id": "vpndetection",
@@ -801,41 +765,6 @@
       "added": "2026-11-10"
     },
     {
-      "id": "paul-jerimy-roadmap",
-      "name": "Paul Jerimy Cyber Roadmap",
-      "url": "https://pauljerimy.com/security-certification-roadmap/",
-      "desc": "Interactive security certification roadmap showing study paths across offensive, defensive, and governance domains.",
-      "cats": ["study"],
-      "tags": ["study", "roadmap"],
-      "opsec": "reference",
-      "opsecNote": ""
-    },
-    {
-      "id": "nomi-sec-poc",
-      "name": "Nomi Sec CVE POCs",
-      "url": "https://github.com/nomi-sec/PoC-in-GitHub",
-      "desc": "Automated aggregation tool that scans GitHub daily to collect Proof of Concept (PoC) code and exploits for newly discovered cybersecurity vulnerabilities.",
-      "cats": ["poc"],
-      "tags": ["poc"],
-      "opsec": "reference",
-      "opsecNote": "PoC code on GitHub is unvetted and sometimes malicious. Only run it in an isolated lab.",
-      "lookupLabel": "Nomi Sec (PoCs)",
-      "lookups": {
-        "cve": "https://github.com/nomi-sec/PoC-in-GitHub/blob/master/{cveyear}/{value}.json"
-      }
-    },
-    {
-      "id": "uchecker",
-      "name": "uChecker",
-      "url": "https://uchecker.net/tools",
-      "desc": "Bulk email list verification plus 13 free DNS tools (SPF, DKIM, DMARC, BIMI generators and checkers) without registration.",
-      "cats": ["email"],
-      "tags": ["email"],
-      "opsec": "active",
-      "opsecNote": "Email verification contacts the recipient's mail server, and any list you upload is shared with the service.",
-      "added": "2026-11-10"
-    },
-    {
       "id": "spoofcheck",
       "name": "SpoofCheck",
       "url": "https://spoofchecker.online/",
@@ -845,21 +774,6 @@
       "opsec": "public",
       "opsecNote": "The domain you check gets a public report page and can appear in the recent-scans list on the home page. The check also queries the domain's DNS records live.",
       "added": "2026-11-24"
-    },
-    {
-      "id": "ghostarchive",
-      "name": "Ghostarchive",
-      "url": "https://ghostarchive.org/",
-      "desc": "Free web archive that uses ReplayWeb.page for viewing archived sites",
-      "cats": ["web-archive"],
-      "tags": ["web-archive"],
-      "opsec": "passive",
-      "opsecNote": "Searching is passive. Archiving a new page makes Ghostarchive fetch it from the site, and the copy is public.",
-      "lookups": {
-        "url": "https://ghostarchive.org/search?term={enc}",
-        "domain": "https://ghostarchive.org/search?term={enc}"
-      },
-      "added": "2026-11-13"
     }
   ]
 }
