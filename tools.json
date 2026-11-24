@@ -16,7 +16,7 @@
   },
   "lookupOrder": {
     "ip":     ["virustotal", "abuseipdb", "greynoise", "shodan", "censys", "otx-alienvault", "cisco-talos", "ipinfo", "bgp-he-net", "urlscan", "intelligence-x"],
-    "domain": ["virustotal", "urlscan", "otx-alienvault", "cisco-talos", "google-safe-browsing", "shodan", "whois-lookup", "domaintools-whois", "mxtoolbox", "viewdns", "wayback-machine", "intelligence-x"],
+    "domain": ["virustotal", "urlscan", "otx-alienvault", "cisco-talos", "google-safe-browsing", "whois-lookup", "domaintools-whois", "mxtoolbox", "viewdns", "wayback-machine", "intelligence-x"],
     "url":    ["virustotal", "urlhaus", "google-safe-browsing", "wayback-machine", "intelligence-x"],
     "hash":   ["virustotal", "malwarebazaar", "hybrid-analysis", "otx-alienvault", "joe-sandbox", "cisco-talos", "intelligence-x"],
     "email":  ["intelligence-x", "have-i-been-pwned"],
@@ -62,7 +62,10 @@
       "cats": ["scan", "malware"],
       "tags": ["scan", "malware"],
       "opsec": "public",
-      "opsecNote": "Uploaded files may be retained and shared. Search by hash rather than uploading client files."
+      "opsecNote": "Uploaded files may be retained and shared. Search by hash rather than uploading client files.",
+      "lookups": {
+        "hash": "https://metadefender.com/results/hash/{value}"
+      }
     },
     {
       "id": "urlhaus",
@@ -85,7 +88,7 @@
       "cats": ["scan", "domain"],
       "tags": ["scan", "domain"],
       "opsec": "public",
-      "opsecNote": "Treat lookups as visible to others: recent scans can be listed on the site."
+      "opsecNote": "The site you check is shared with security companies, and recent checks can be listed on the site."
     },
     {
       "id": "google-safe-browsing",
@@ -147,7 +150,7 @@
       "url": "https://web-check.xyz",
       "desc": "All-in-one OSINT tool for any website: DNS, TLS, headers, open ports, linked domains, cookies, and more.",
       "cats": ["scan", "domain", "osint"],
-      "tags": ["scan", "domain"],
+      "tags": ["scan", "domain", "osint"],
       "opsec": "active",
       "opsecNote": "Makes live requests to the site: DNS, headers, open ports and more."
     },
@@ -158,8 +161,8 @@
       "desc": "Website trustworthiness checker analyzing reputation, domain age, and public security signals.",
       "cats": ["scan", "domain"],
       "tags": ["scan", "domain"],
-      "opsec": "active",
-      "opsecNote": "Checks the live site, so the target may see the request."
+      "opsec": "public",
+      "opsecNote": "The site you check is shared with security companies and can appear in the public Recent Checks list. The check may also reach the live site."
     },
     {
       "id": "urlquery",
@@ -246,7 +249,7 @@
       "opsec": "passive",
       "opsecNote": "",
       "lookups": {
-        "ip": "https://viz.greynoise.io/ip/{value}"
+        "ip": "https://viz.greynoise.io/ips/{value}"
       }
     },
     {
@@ -257,7 +260,11 @@
       "cats": ["intel"],
       "tags": ["intel"],
       "opsec": "passive",
-      "opsecNote": "Searching is passive. Submitting a new indicator for scanning makes Pulsedive probe it."
+      "opsecNote": "Searching is passive. Submitting a new indicator for scanning makes Pulsedive probe it.",
+      "lookups": {
+        "ip": "https://pulsedive.com/indicator/{value}",
+        "domain": "https://pulsedive.com/indicator/{value}"
+      }
     },
     {
       "id": "threat-intelligence-platform",
@@ -267,7 +274,7 @@
       "cats": ["intel", "domain"],
       "tags": ["intel", "domain"],
       "opsec": "active",
-      "opsecNote": "Pulls live DNS and SSL data, which can contact the target."
+      "opsecNote": "Visits the site live (including a screenshot) and checks its DNS, SSL and mail servers, so the target sees the requests. Each report gets a shareable permalink."
     },
     {
       "id": "mitre-attack",
@@ -283,11 +290,15 @@
       "id": "cloudflare-radar",
       "name": "Cloudflare Radar",
       "url": "https://radar.cloudflare.com",
-      "desc": "Internet traffic patterns, DDoS trends, and technology adoption data collected by Cloudflare globally.",
+      "desc": "Cloudflare's view of internet traffic and attacks, with pages for individual IPs, networks (ASNs) and domains, including WHOIS, ranking and DNS.",
       "cats": ["intel", "network"],
       "tags": ["intel", "network"],
       "opsec": "passive",
-      "opsecNote": "Traffic data is passive. Its URL Scanner is public by default and visits the site."
+      "opsecNote": "Traffic data is passive. Its URL Scanner is public by default and visits the site.",
+      "lookups": {
+        "ip": "https://radar.cloudflare.com/ip/{value}",
+        "domain": "https://radar.cloudflare.com/domains/domain/{value}"
+      }
     },
     {
       "id": "cybergordon",
@@ -297,7 +308,7 @@
       "cats": ["intel"],
       "tags": ["intel"],
       "opsec": "public",
-      "opsecNote": "Forwards your indicator to 30+ third-party services, so assume every one of them sees it."
+      "opsecNote": "Results stay private (shareable for 7 days), but your indicator is sent to 30+ outside services such as VirusTotal and IBM X-Force, so assume each of them sees it."
     },
     {
       "id": "ipvoid",
@@ -339,11 +350,11 @@
       "id": "whiteintel",
       "name": "WhiteIntel",
       "url": "https://whiteintel.io/",
-      "desc": "A dark-web based search engine for detecting data breaches from malicious malware networks.",
-      "cats": ["intel"],
-      "tags": ["intel"],
+      "desc": "Check a domain or email against infostealer logs, leaked credentials and breach dumps from dark web sources. Free check, no sign-up.",
+      "cats": ["breach"],
+      "tags": ["breach"],
       "opsec": "passive",
-      "opsecNote": "",
+      "opsecNote": "Your search goes to WhiteIntel, a commercial vendor. Each check creates a report page with its own link, and the free check leads into paid reports.",
       "added": "2026-11-10"
     },
     {
@@ -359,7 +370,7 @@
     {
       "id": "grayhatwarfare",
       "name": "GrayhatWarfare",
-      "url": "https://grayhatwarfare.com",
+      "url": "https://buckets.grayhatwarfare.com",
       "desc": "Search open Amazon S3 buckets — find potentially exposed public cloud storage data.",
       "cats": ["osint"],
       "tags": ["osint"],
@@ -402,17 +413,17 @@
       "name": "Breach House",
       "url": "https://breach.house/",
       "desc": "Free, open search over ransomware leaks, stealer logs, traditional breaches and leads, by company, domain or email.",
-      "cats": ["osint"],
-      "tags": ["osint"],
+      "cats": ["breach"],
+      "tags": ["breach"],
       "opsec": "passive",
-      "opsecNote": "Searching is passive, but your search terms (company, domain or email) may be logged by the service.",
+      "opsecNote": "Searches run on haveibeenransom.com, which powers this site. Email search is free; domain search needs an account. The site says searches aren't stored.",
       "added": "2026-11-10"
     },
     {
       "id": "onion-lookup",
       "name": "onion-lookup",
       "url": "https://onion.ail-project.org/",
-      "desc": "onion-lookup is a service (web, API) for checking the existence of Tor hidden services and retrieving their associated metadata. onion-lookup relies on an private AIL instance to obtain the metadata.",
+      "desc": "Check whether a Tor .onion address is known and see its metadata, from the open-source AIL Project's crawler data.",
       "cats": ["osint"],
       "tags": ["osint"],
       "opsec": "passive",
@@ -423,10 +434,10 @@
       "id": "tormap",
       "name": "TorMap",
       "url": "https://tormap.org/",
-      "desc": "Search for thousands of Tor network relays",
-      "cats": ["osint"],
-      "tags": ["osint"],
-      "opsec": "reference",
+      "desc": "World map of public Tor relays for any day since 2007. Search a relay by nickname or fingerprint.",
+      "cats": ["network"],
+      "tags": ["network"],
+      "opsec": "passive",
       "opsecNote": "",
       "added": "2026-11-13"
     },
@@ -434,7 +445,7 @@
       "id": "any-run",
       "name": "ANY.RUN",
       "url": "https://any.run",
-      "desc": "Interactive online malware sandbox for DFIR/SOC investigations. Run samples live in a browser-based VM.",
+      "desc": "Interactive malware sandbox. Search public analyses free; running your own sample needs a free account.",
       "cats": ["malware"],
       "tags": ["malware", "sandbox"],
       "opsec": "public",
@@ -450,7 +461,7 @@
       "opsec": "public",
       "opsecNote": "Submissions are public by default and shared with partners. Search by hash first.",
       "lookups": {
-        "hash": "https://www.hybrid-analysis.com/search?query={value}"
+        "hash": { "url": "https://www.hybrid-analysis.com/sample/{value}", "only": ["sha256"] }
       }
     },
     {
@@ -470,13 +481,13 @@
       "id": "joe-sandbox",
       "name": "Joe Sandbox",
       "url": "https://www.joesandbox.com",
-      "desc": "Deep malware analysis with behavioral analytics. Web-based sandbox with detailed execution reports.",
+      "desc": "Deep malware analysis with behaviour reports. Searching existing reports is open; running a sample needs a free account.",
       "cats": ["malware"],
       "tags": ["malware", "sandbox"],
       "opsec": "public",
-      "opsecNote": "Free (Basic) analyses publish their reports. Never upload client documents.",
+      "opsecNote": "Free analyses are published for everyone, including the sample and screenshots. Never upload client documents.",
       "lookups": {
-        "hash": "https://www.joesandbox.com/search?q={value}"
+        "hash": "https://www.joesandbox.com/analysis/search?q={value}"
       }
     },
     {
@@ -489,32 +500,34 @@
       "opsec": "passive",
       "opsecNote": "Searching is passive. On-demand scans (Shodan Scan) actively probe the target.",
       "lookups": {
-        "ip": "https://www.shodan.io/host/{value}",
-        "domain": "https://www.shodan.io/search?query=hostname%3A{enc}"
+        "ip": "https://www.shodan.io/host/{value}"
       }
     },
     {
       "id": "censys",
       "name": "Censys",
-      "url": "https://search.censys.io",
+      "url": "https://platform.censys.io",
       "desc": "Discover exposed servers and certificates across the internet. Used for attack surface enumeration.",
       "cats": ["network", "osint"],
       "tags": ["network", "osint"],
       "opsec": "passive",
       "opsecNote": "",
       "lookups": {
-        "ip": "https://search.censys.io/hosts/{value}"
+        "ip": "https://platform.censys.io/hosts/{value}"
       }
     },
     {
       "id": "fullhunt",
       "name": "FullHunt",
       "url": "https://fullhunt.io",
-      "desc": "External attack surface discovery — find and enumerate your internet-exposed assets and services.",
+      "desc": "Free public search of a domain's internet-facing hosts, open ports and known vulnerabilities, from FullHunt's scan data.",
       "cats": ["network", "osint"],
       "tags": ["network", "osint"],
       "opsec": "passive",
-      "opsecNote": ""
+      "opsecNote": "",
+      "lookups": {
+        "domain": "https://fullhunt.io/search/?query={enc}"
+      }
     },
     {
       "id": "leakix",
@@ -524,13 +537,16 @@
       "cats": ["network", "osint"],
       "tags": ["network", "osint"],
       "opsec": "passive",
-      "opsecNote": "A free account is needed to see host details."
+      "opsecNote": "",
+      "lookups": {
+        "ip": "https://leakix.net/host/{value}"
+      }
     },
     {
       "id": "ipinfo",
       "name": "IPInfo.io",
       "url": "https://ipinfo.io",
-      "desc": "IP geolocation, ASN, and company details. Free tier covers 50k lookups per month.",
+      "desc": "IP geolocation, ASN, company and abuse contact, plus VPN and proxy flags. Hosted-domain lists need a free account.",
       "cats": ["network", "intel"],
       "tags": ["network", "intel"],
       "opsec": "passive",
@@ -561,13 +577,16 @@
       "tags": ["network"],
       "opsec": "passive",
       "opsecNote": "Checks the IP against existing data. The Chrome extension sends any IP you select on a page to their servers.",
+      "lookups": {
+        "ip": "https://api.vpndetection.io/{value}"
+      },
       "added": "2026-11-10"
     },
     {
       "id": "ipgeolocation-io",
       "name": "IPGeolocation.io",
       "url": "https://ipgeolocation.io/",
-      "desc": "IP lookup API: geolocation, ASN, time zone and abuse contact, plus VPN, proxy, Tor and bot detection with a threat score. Partly free (1,000 requests a day; security data on paid plans)",
+      "desc": "Look up an IP's location, ASN and abuse contact, with a threat score and VPN, proxy, Tor and bot flags. Free in the browser, no sign-up.",
       "cats": ["network"],
       "tags": ["network"],
       "opsec": "passive",
@@ -650,7 +669,10 @@
       "cats": ["vuln", "network"],
       "tags": ["vuln", "network"],
       "opsec": "reference",
-      "opsecNote": ""
+      "opsecNote": "",
+      "lookups": {
+        "cve": "https://cvedb.shodan.io/cve/{value}"
+      }
     },
     {
       "id": "have-i-been-pwned",
@@ -677,9 +699,9 @@
     },
     {
       "id": "socradar-darkweb-report",
-      "name": "SocRadar Darkweb Report",
+      "name": "SOCRadar Dark Web Report",
       "url": "https://socradar.io/free-tools/dark-web-report",
-      "desc": "SOCRadar searches Telegram, leak sites, black markets, and hacker forums for threats and exposures tied to your domain. Scan now to see the risks.",
+      "desc": "Search a domain against SOCRadar's dark web data: infostealer logs, leaked staff credentials, data for sale and hacker-channel mentions. A few free searches a day.",
       "cats": ["breach", "intel"],
       "tags": ["breach", "intel"],
       "opsec": "public",
@@ -757,9 +779,9 @@
       "id": "warnwell",
       "name": "Warnwell",
       "url": "https://warnwell.com/",
-      "desc": "Bulk domain health check: SPF, DKIM, DMARC, spoofing risk, DNSSEC, expiry dates, SSL certificates and parked domains for many domains at once. Free, no signup",
-      "cats": ["domain"],
-      "tags": ["domain"],
+      "desc": "Bulk domain health check: SPF, DKIM, DMARC, spoofing risk, DNSSEC, expiry dates, SSL certificates and parked domains for many domains at once. Free, no signup.",
+      "cats": ["domain", "email"],
+      "tags": ["domain", "email"],
       "opsec": "active",
       "opsecNote": "Fetches each domain's DNS records and SSL certificate live, so the target may see the requests.",
       "added": "2026-11-10"
