@@ -196,6 +196,28 @@
       "added": "2026-11-24"
     },
     {
+      "id": "site-shot",
+      "name": "Site-Shot",
+      "url": "https://www.site-shot.com",
+      "desc": "Take a screenshot of a suspicious URL from Site-Shot's servers, so you can see the page without opening it yourself. Free, no sign-up.",
+      "cats": ["scan"],
+      "tags": ["scan"],
+      "opsec": "active",
+      "opsecNote": "Site-Shot's browser loads the URL from its own servers, so the target sees their request, not yours. Free captures are kept for 12 hours and get no share link.",
+      "added": "2026-11-24"
+    },
+    {
+      "id": "whatsmydns-redirect-checker",
+      "name": "whatsmydns Redirect Checker",
+      "url": "https://www.whatsmydns.net/redirect-checker",
+      "desc": "Follow a link's redirect chain hop by hop, with the status code of each step, to see where a short or suspicious link really goes. Free, no sign-up.",
+      "cats": ["scan"],
+      "tags": ["scan"],
+      "opsec": "active",
+      "opsecNote": "Follows the link from whatsmydns.net's servers, so each site in the chain sees their request, not yours.",
+      "added": "2026-11-24"
+    },
+    {
       "id": "abuseipdb",
       "name": "AbuseIPDB",
       "url": "https://www.abuseipdb.com",
@@ -666,8 +688,8 @@
       "name": "Shodan CVEDB",
       "url": "https://cvedb.shodan.io",
       "desc": "Shodan's free CVE database. Look up vulnerabilities by CVE ID or by product.",
-      "cats": ["vuln", "network"],
-      "tags": ["vuln", "network"],
+      "cats": ["vuln"],
+      "tags": ["vuln"],
       "opsec": "reference",
       "opsecNote": "",
       "lookups": {
@@ -716,8 +738,8 @@
       "name": "MXToolbox",
       "url": "https://mxtoolbox.com",
       "desc": "Free DNS lookups, MX record checks, blacklist monitoring, and email deliverability diagnostic tools.",
-      "cats": ["domain", "network"],
-      "tags": ["domain", "network"],
+      "cats": ["domain", "network", "email"],
+      "tags": ["domain", "network", "email"],
       "opsec": "active",
       "opsecNote": "Queries the domain's DNS and mail servers live.",
       "lookups": {
