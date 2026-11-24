@@ -186,6 +186,17 @@
       "opsecNote": "Opens the site from Browserling's servers, so the target sees their IP rather than yours."
     },
     {
+      "id": "scanify-link-expander",
+      "name": "Scanify Link Expander",
+      "url": "https://scanify.to/link-expander",
+      "desc": "Paste a short or redirecting link and see every hop and the final destination, followed on its servers so you never visit it. Flags cross-domain hops. Free, no account.",
+      "cats": ["scan"],
+      "tags": ["scan"],
+      "opsec": "public",
+      "opsecNote": "Scanify visits the link from its own servers, so the target sees their request, not yours. Links you submit are shared with Scanify's scanning partners.",
+      "added": "2026-11-24"
+    },
+    {
       "id": "abuseipdb",
       "name": "AbuseIPDB",
       "url": "https://www.abuseipdb.com",
