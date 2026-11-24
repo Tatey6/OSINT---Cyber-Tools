@@ -16,14 +16,14 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 | Category | Tools | Examples |
 |---|---|---|
 | URL / file scan | 15 | VirusTotal, URLScan.io, Metadefender, URLhaus |
-| Threat intel | 18 | AbuseIPDB, Cisco Talos Intelligence, OTX – AlienVault, GreyNoise |
-| OSINT | 16 | OSINT Framework, GrayhatWarfare, Wayback Machine, Intelligence X |
+| Threat intel | 17 | AbuseIPDB, Cisco Talos Intelligence, OTX – AlienVault, GreyNoise |
+| OSINT | 14 | OSINT Framework, GrayhatWarfare, Wayback Machine, Intelligence X |
 | Malware | 10 | ANY.RUN, Hybrid Analysis, MalwareBazaar, Joe Sandbox |
-| Network / IoT | 15 | Shodan, Censys, FullHunt, LeakIX |
+| Network / IoT | 16 | TorMap, Shodan, Censys, FullHunt |
 | Vulnerabilities | 6 | NVD – NIST, Exploit-DB, CVE Details, CIRCL CVE Search |
-| Breach / creds | 4 | Have I Been Pwned, Pwned Passwords, SocRadar Darkweb Report, Intelligence X |
+| Breach / creds | 6 | WhiteIntel, Breach House, Have I Been Pwned, Pwned Passwords |
 | Domain / DNS | 17 | MXToolbox, DNSDumpster, WHOIS Lookup, DomainTools WHOIS |
-| Email | 1 | SpoofCheck |
+| Email | 2 | SpoofCheck, Warnwell |
 <!-- /CATEGORY-TABLE -->
 
 ---
@@ -45,10 +45,10 @@ Every tool card shows how the tool handles what you give it, with a short note o
 <!-- OPSEC-TABLE -->
 | Rating | Meaning | Tools |
 |---|---|---|
-| 🔴 **Submissions public** | Others can see what you submit | 14 |
-| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 9 |
-| 🟢 **Passive lookup** | Searches existing data only | 30 |
-| ⚪ **Reference** | No indicator needed | 10 |
+| 🔴 **Submissions public** | Others can see what you submit | 15 |
+| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 8 |
+| 🟢 **Passive lookup** | Searches existing data only | 31 |
+| ⚪ **Reference** | No indicator needed | 9 |
 <!-- /OPSEC-TABLE -->
 
 The **Passive only** filter shows just the passive and reference tools, which is a safe default view for newer analysts.
