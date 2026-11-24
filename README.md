@@ -10,12 +10,12 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 
 ## What's included
 
-**<!-- TOOL-COUNT -->68<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
+**<!-- TOOL-COUNT -->69<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
 
 <!-- CATEGORY-TABLE -->
 | Category | Tools | Examples |
 |---|---|---|
-| URL / file scan | 14 | VirusTotal, URLScan.io, Metadefender, URLhaus |
+| URL / file scan | 15 | VirusTotal, URLScan.io, Metadefender, URLhaus |
 | Threat intel | 19 | AbuseIPDB, Cisco Talos Intelligence, OTX – AlienVault, GreyNoise |
 | OSINT | 17 | OSINT Framework, GrayhatWarfare, Wayback Machine, Intelligence X |
 | Malware | 10 | ANY.RUN, Hybrid Analysis, MalwareBazaar, Joe Sandbox |
@@ -48,7 +48,7 @@ Every tool card shows how the tool handles what you give it, with a short note o
 <!-- OPSEC-TABLE -->
 | Rating | Meaning | Tools |
 |---|---|---|
-| 🔴 **Submissions public** | Others can see what you submit | 12 |
+| 🔴 **Submissions public** | Others can see what you submit | 13 |
 | 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 10 |
 | 🟢 **Passive lookup** | Searches existing data only | 34 |
 | ⚪ **Reference** | No indicator needed | 12 |
