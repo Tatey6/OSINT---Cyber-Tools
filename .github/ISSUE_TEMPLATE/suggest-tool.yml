@@ -53,10 +53,7 @@ body:
         - "Vulnerabilities"
         - "Breach / creds"
         - "Domain / DNS"
-        - "Study"
-        - "CVE / PoC"
         - "Email"
-        - "Web Archive"
         # CATEGORIES-END
     validations:
       required: false
