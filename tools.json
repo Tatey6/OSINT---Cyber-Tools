@@ -207,17 +207,6 @@
       "added": "2026-11-24"
     },
     {
-      "id": "whatsmydns-redirect-checker",
-      "name": "whatsmydns Redirect Checker",
-      "url": "https://www.whatsmydns.net/redirect-checker",
-      "desc": "Follow a link's redirect chain hop by hop, with the status code of each step, to see where a short or suspicious link really goes. Free, no sign-up.",
-      "cats": ["scan"],
-      "tags": ["scan"],
-      "opsec": "active",
-      "opsecNote": "Follows the link from whatsmydns.net's servers, so each site in the chain sees their request, not yours.",
-      "added": "2026-11-24"
-    },
-    {
       "id": "abuseipdb",
       "name": "AbuseIPDB",
       "url": "https://www.abuseipdb.com",
