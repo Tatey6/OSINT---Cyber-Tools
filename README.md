@@ -10,7 +10,7 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 
 ## What's included
 
-**<!-- TOOL-COUNT -->69<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
+**<!-- TOOL-COUNT -->70<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
 
 <!-- CATEGORY-TABLE -->
 | Category | Tools | Examples |
@@ -22,10 +22,10 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 | Network / IoT | 17 | Shodan, Censys, FullHunt, LeakIX |
 | Vulnerabilities | 6 | NVD – NIST, Exploit-DB, CVE Details, CIRCL CVE Search |
 | Breach / creds | 4 | Have I Been Pwned, Pwned Passwords, SocRadar Darkweb Report, Intelligence X |
-| Domain / DNS | 16 | MXToolbox, DNSDumpster, WHOIS Lookup, DomainTools WHOIS |
+| Domain / DNS | 17 | MXToolbox, DNSDumpster, WHOIS Lookup, DomainTools WHOIS |
 | Study | 1 | Paul Jerimy Cyber Roadmap |
 | CVE / PoC | 1 | Nomi Sec CVE POCs |
-| Email | 1 | uChecker |
+| Email | 2 | uChecker, SpoofCheck |
 | Web Archive | 1 | Ghostarchive |
 <!-- /CATEGORY-TABLE -->
 
@@ -48,7 +48,7 @@ Every tool card shows how the tool handles what you give it, with a short note o
 <!-- OPSEC-TABLE -->
 | Rating | Meaning | Tools |
 |---|---|---|
-| 🔴 **Submissions public** | Others can see what you submit | 13 |
+| 🔴 **Submissions public** | Others can see what you submit | 14 |
 | 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 10 |
 | 🟢 **Passive lookup** | Searches existing data only | 34 |
 | ⚪ **Reference** | No indicator needed | 12 |
