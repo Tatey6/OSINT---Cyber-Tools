@@ -701,6 +701,20 @@
       "opsecNote": "Only a partial hash leaves your browser, but never type a live production password into any website."
     },
     {
+      "id": "socradar-darkweb-report",
+      "name": "SocRadar Darkweb Report",
+      "url": "https://socradar.io/free-tools/dark-web-report",
+      "desc": "SOCRadar searches Telegram, leak sites, black markets, and hacker forums for threats and exposures tied to your domain. Scan now to see the risks.",
+      "cats": ["breach", "intel"],
+      "tags": ["breach", "intel"],
+      "opsec": "public",
+      "opsecNote": "SOCRadar logs the domain you search, and result addresses containing searched domains have appeared in search engines.",
+      "lookups": {
+        "domain": "https://socradar.io/free-tools/dark-web-report?domain={enc}"
+      },
+      "added": "2026-11-24"
+    },
+    {
       "id": "mxtoolbox",
       "name": "MXToolbox",
       "url": "https://mxtoolbox.com",
