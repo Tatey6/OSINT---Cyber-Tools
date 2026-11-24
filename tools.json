@@ -836,6 +836,17 @@
       "added": "2026-11-10"
     },
     {
+      "id": "spoofcheck",
+      "name": "SpoofCheck",
+      "url": "https://spoofchecker.online/",
+      "desc": "Free email spoofing test: checks a domain's SPF, DKIM, DMARC, MTA-STS and MX records and grades how easily it can be impersonated (A to F).",
+      "cats": ["email", "domain"],
+      "tags": ["email", "domain"],
+      "opsec": "public",
+      "opsecNote": "The domain you check gets a public report page and can appear in the recent-scans list on the home page. The check also queries the domain's DNS records live.",
+      "added": "2026-11-24"
+    },
+    {
       "id": "ghostarchive",
       "name": "Ghostarchive",
       "url": "https://ghostarchive.org/",
