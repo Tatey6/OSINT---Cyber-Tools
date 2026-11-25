@@ -10,7 +10,7 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 
 ## What's included
 
-**<!-- TOOL-COUNT -->64<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
+**<!-- TOOL-COUNT -->65<!-- /TOOL-COUNT --> tools**, each verified to work without a paid account. Most tools sit in more than one category.
 
 <!-- CATEGORY-TABLE -->
 | Category | Tools | Examples |
@@ -20,9 +20,9 @@ A searchable index of free, web-based cybersecurity tools, with a built-in indic
 | OSINT | 14 | OSINT Framework, GrayhatWarfare, Wayback Machine, Intelligence X |
 | Malware | 10 | ANY.RUN, Hybrid Analysis, MalwareBazaar, Joe Sandbox |
 | Network / IoT | 15 | TorMap, Shodan, Censys, FullHunt |
-| Vulnerabilities | 6 | NVD – NIST, Exploit-DB, CVE Details, CIRCL CVE Search |
+| Vulnerabilities | 7 | NVD – NIST, Exploit-DB, CVE Details, CIRCL CVE Search |
 | Breach / creds | 6 | WhiteIntel, Breach House, Have I Been Pwned, Pwned Passwords |
-| Domain / DNS | 17 | MXToolbox, DNSDumpster, WHOIS Lookup, DomainTools WHOIS |
+| Domain / DNS | 18 | MXToolbox, DNSDumpster, WHOIS Lookup, DomainTools WHOIS |
 | Email | 3 | SpoofCheck, MXToolbox, Warnwell |
 <!-- /CATEGORY-TABLE -->
 
@@ -46,7 +46,7 @@ Every tool card shows how the tool handles what you give it, with a short note o
 | Rating | Meaning | Tools |
 |---|---|---|
 | 🔴 **Submissions public** | Others can see what you submit | 15 |
-| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 9 |
+| 🟠 **Contacts target** | The tool connects to the site or IP, so the target sees traffic | 10 |
 | 🟢 **Passive lookup** | Searches existing data only | 31 |
 | ⚪ **Reference** | No indicator needed | 9 |
 <!-- /OPSEC-TABLE -->
