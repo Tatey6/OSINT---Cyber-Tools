@@ -1,15 +1,15 @@
 {
   "$comment": "The SpotLight tool list. Edit this file to add, change or remove tools; the site, the validator and the link checker all read it. Field guide: CONTRIBUTING.md",
   "categories": [
-    { "id": "scan",        "label": "URL / file scan" },
-    { "id": "intel",       "label": "Threat intel" },
-    { "id": "osint",       "label": "OSINT" },
-    { "id": "malware",     "label": "Malware" },
-    { "id": "network",     "label": "Network / IoT" },
-    { "id": "vuln",        "label": "Vulnerabilities" },
-    { "id": "breach",      "label": "Breach / creds" },
-    { "id": "domain",      "label": "Domain / DNS" },
-    { "id": "email",       "label": "Email" }
+    { "id": "scan",    "label": "URL / file scan" },
+    { "id": "intel",   "label": "Threat intel" },
+    { "id": "osint",   "label": "OSINT" },
+    { "id": "malware", "label": "Malware" },
+    { "id": "network", "label": "Network / IoT" },
+    { "id": "vuln",    "label": "Vulnerabilities" },
+    { "id": "breach",  "label": "Breach / creds" },
+    { "id": "domain",  "label": "Domain / DNS" },
+    { "id": "email",   "label": "Email" }
   ],
   "extraTags": {
     "sandbox": "Sandbox"
@@ -796,6 +796,17 @@
       "opsec": "active",
       "opsecNote": "Fetches each domain's DNS records and SSL certificate live, so the target may see the requests.",
       "added": "2026-11-10"
+    },
+    {
+      "id": "trythehandle",
+      "name": "TryTheHandle",
+      "url": "https://trythehandle.eu/",
+      "desc": "External security check of a website as seen from the Internet: TLS and certificate, HTTP security headers, DNS and SPF/DKIM/DMARC. Report scored out of 100 with a fix for each issue. Free with no sign-up; deeper checks (exposed files, software versions) need proof you own the site.",
+      "cats": ["domain", "vuln"],
+      "tags": ["domain", "vuln"],
+      "opsec": "active",
+      "opsecNote": "Scans the site live from TryTheHandle's servers, so the target sees the traffic. The operator logs your IP address and the target for 6 months. Results aren't published and are erased after 30 minutes.",
+      "added": "2026-11-25"
     },
     {
       "id": "spoofcheck",
